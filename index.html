@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GROWBIT PRIVATE LIMITED - Growing Together, Globally</title>
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;scroll-behavior:smooth}
+.gradient-bg{background:linear-gradient(135deg,#f0fdf4 0%,#eff6ff 50%,#faf5ff 100%)}
+.brand-gradient{background:linear-gradient(135deg,#0A8754,#0D9488 50%,#2563EB);-webkit-background-clip:text;background-clip:text;color:transparent}
+.page{display:none}.page.active{display:block}
+.reward-card:hover{transform:translateY(-5px);box-shadow:0 20px 25px -5px rgba(0,0,0,.1)}
+.metric-card{transition:transform .3s,box-shadow .3s}
+.metric-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
+
+/* LEADERBOARD */
+.lbrow{cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;position:relative}
+.lbrow:hover{background:#f0fdf4!important;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08);z-index:2}
+.lbrow.highlighted{background:#d1fae5!important}
+.lbrow.rank1{background:linear-gradient(90deg,#fffbeb,#fef9c3 60%,#fffbeb)!important;box-shadow:inset 0 0 20px rgba(252,211,77,.15),0 0 0 2px #fcd34d44}
+.lbrow.rank1:hover{background:linear-gradient(90deg,#fef3c7,#fde68a 60%,#fef3c7)!important}
+.exprow{display:none}.exprow.open{display:table-row}
+.chev{display:inline-block;transition:transform .3s;margin-left:5px;font-size:11px;color:#9ca3af}
+.lbrow.xopen .chev{transform:rotate(180deg)}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-left:6px;vertical-align:middle}
+.bgold{background:linear-gradient(135deg,#fde68a,#f59e0b);color:#78350f}
+.bsilver{background:linear-gradient(135deg,#e2e8f0,#94a3b8);color:#1e293b}
+.bbronze{background:linear-gradient(135deg,#fed7aa,#f97316);color:#431407}
+.medal{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:12px;font-weight:800}
+.mgold{background:linear-gradient(135deg,#fde68a,#f59e0b);color:#78350f;box-shadow:0 2px 8px rgba(245,158,11,.4)}
+.msilver{background:linear-gradient(135deg,#e2e8f0,#94a3b8);color:#1e293b;box-shadow:0 2px 8px rgba(148,163,184,.4)}
+.mbronze{background:linear-gradient(135deg,#fed7aa,#f97316);color:#431407;box-shadow:0 2px 8px rgba(249,115,22,.4)}
+.ptscell{font-weight:700;font-variant-numeric:tabular-nums}
+@keyframes rowIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+.lbrow.rowanim{animation:rowIn .3s ease both}
+@keyframes fgreen{0%{background:#d1fae5}100%{background:transparent}}
+@keyframes fred{0%{background:#fee2e2}100%{background:transparent}}
+.flashup{animation:fgreen .8s ease}
+.flashdn{animation:fred .8s ease}
+
+/* ORBIT MODAL */
+#GB_ORBIT_MODAL{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:999999;
+  display:none;
+  align-items:center;justify-content:center;
+  background:rgba(10,20,40,.75);
+  backdrop-filter:blur(6px)
+}
+#GB_ORBIT_MODAL.gb-open{display:flex}
+.orb-panel{
+  background:#fff;border-radius:20px;
+  width:680px;max-width:95vw;max-height:88vh;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.4)
+}
+@keyframes panelIn{from{opacity:0;transform:scale(.88) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+#GB_ORBIT_MODAL.gb-open .orb-panel{animation:panelIn .3s cubic-bezier(.34,1.56,.64,1) both}
+.orb-hdr{
+  background:linear-gradient(135deg,#0A8754,#0D9488 55%,#2563EB);
+  padding:20px 22px 0;color:#fff;flex-shrink:0
+}
+.orb-hdr h2{margin:0 0 3px;font-size:1.1rem;font-weight:700}
+.orb-hdr p{margin:0 0 14px;font-size:.78rem;opacity:.75}
+.orb-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.orb-chip{background:rgba(255,255,255,.18);border-radius:8px;padding:6px 12px;font-size:.74rem;color:#fff;display:flex;align-items:center;gap:4px}
+.orb-chip strong{font-size:.95rem;font-weight:800}
+.orb-tabs{display:flex;gap:3px}
+.orb-tab{
+  padding:7px 18px;border-radius:9px 9px 0 0;border:none;cursor:pointer;
+  font-size:.79rem;font-weight:600;font-family:'Poppins',sans-serif;
+  background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);
+  transition:background .2s,color .2s
+}
+.orb-tab.active{background:#fff;color:#0A8754}
+.orb-body{padding:18px 20px;overflow-y:auto;flex:1}
+.orb-desc{font-size:.78rem;color:#64748b;margin-bottom:13px;line-height:1.6}
+.orb-card{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 14px;border-radius:11px;border:1px solid #e5e7eb;
+  margin-bottom:8px;background:#fff;
+  transition:box-shadow .2s,transform .2s
+}
+.orb-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-2px)}
+.orb-avi{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem}
+.avi1{background:linear-gradient(135deg,#d1fae5,#6ee7b7);color:#065f46}
+.avi2{background:linear-gradient(135deg,#dbeafe,#93c5fd);color:#1e40af}
+.orb-info{flex:1;min-width:0}
+.orb-nm{font-weight:700;font-size:.85rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.orb-id{font-size:.7rem;color:#64748b;font-family:monospace}
+.orb-via{font-size:.68rem;color:#9ca3af;margin-top:1px}
+.orb-pts{background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:#166534;font-weight:700;font-size:.75rem;padding:3px 10px;border-radius:20px;border:1px solid #bbf7d0;white-space:nowrap}
+.orb-empty{text-align:center;padding:32px 12px;color:#9ca3af;font-size:.82rem}
+
+/* PRIVACY & TERMS */
+.privacy-root{--bg:#f6fff7;--card:#fff;--accent:#0ea45b;--muted:#5b6b59;--dark:#04281a;--radius:12px;--max:980px}
+.privacy-wrap{max-width:var(--max);margin:36px auto;padding:20px}
+.privacy-card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:0 10px 30px rgba(2,10,5,.04)}
+.terms-header{background:#0c7c3a;color:#fff;padding:20px;text-align:center}
+.terms-main{max-width:900px;margin:40px auto;background:#fff;padding:30px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+.progress-ring__circle{transition:stroke-dashoffset .35s;transform:rotate(-90deg);transform-origin:50% 50%}
+</style>
+</head>
+<body class="gradient-bg min-h-screen">
+
+<!-- ===== ORBIT MODAL (at top of body, outside all page divs) ===== -->
+<div id="GB_ORBIT_MODAL">
+  <div class="orb-panel">
+    <div class="orb-hdr">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px">
+        <div>
+          <h2 id="OM_NAME">Team Orbit</h2>
+          <p id="OM_CID">Customer ID: —</p>
+        </div>
+        <button onclick="GB_closeOrbit()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px">✕</button>
+      </div>
+      <div class="orb-stats">
+        <div class="orb-chip">🌱 <strong id="OS_D">0</strong> Direct</div>
+        <div class="orb-chip">🌐 <strong id="OS_2">0</strong> 2nd Orbit</div>
+        <div class="orb-chip">⭐ <strong id="OS_P">0</strong> Orbit Pts</div>
+      </div>
+      <div class="orb-tabs">
+        <button class="orb-tab active" id="OT_1" onclick="GB_switchTab(1)">🌱 First Orbit</button>
+        <button class="orb-tab" id="OT_2" onclick="GB_switchTab(2)">🌐 Second Orbit</button>
+      </div>
+    </div>
+    <div class="orb-body" id="OM_BODY"></div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <span class="text-xl font-bold text-gray-800 cursor-pointer" onclick="showPage('home')">GROWBIT <span class="text-green-600">PRIVATE LIMITED</span></span>
+      </div>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#global-pool" onclick="showPage('home')" class="text-gray-600 hover:text-green-600 transition">Global Pool</a>
+        <a href="#leaderboard" onclick="showPage('home')" class="text-gray-600 hover:text-green-600 transition">Leaderboard</a>
+        <a href="#rewards" onclick="showPage('home')" class="text-gray-600 hover:text-green-600 transition">Rewards</a>
+        <a href="#products" onclick="showPage('home')" class="text-gray-600 hover:text-green-600 transition">Products</a>
+      </div>
+      <div class="flex items-center">
+        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">Login</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home-page" class="page active">
+
+  <!-- Hero -->
+  <section class="relative py-20 md:py-32 overflow-hidden">
+    <div class="absolute inset-0 opacity-10"><div class="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-500"></div></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center" data-aos="fade-up">
+        <h1 class="text-5xl md:text-7xl font-bold mb-4 brand-gradient">GROWBIT</h1>
+        <p class="text-xl md:text-2xl text-gray-600 mb-8" data-aos="fade-up" data-aos-delay="100">Growing Together, Globally</p>
+        <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-medium transition transform hover:scale-105" data-aos="fade-up" data-aos-delay="200">Explore Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics -->
+  <section id="global-pool" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-12" data-aos="fade-up">Global Performance Metrics</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div class="metric-card bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-right">
+          <div class="flex items-center mb-4"><div class="p-3 rounded-lg bg-green-100 mr-4"><i data-feather="globe" class="text-green-600"></i></div><h3 class="text-xl font-semibold text-gray-700">Global Pool</h3></div>
+          <div class="flex items-end"><span class="text-4xl font-bold text-gray-800" id="globalPoolCounter">0</span><span class="text-lg text-gray-500 ml-2">INR</span></div>
+        </div>
+        <div class="metric-card bg-gradient-to-r from-blue-50 to-teal-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up">
+          <div class="flex items-center mb-4"><div class="p-3 rounded-lg bg-blue-100 mr-4"><i data-feather="award" class="text-blue-600"></i></div><h3 class="text-xl font-semibold text-gray-700">Total Points</h3></div>
+          <div class="flex items-end"><span class="text-4xl font-bold text-gray-800" id="totalPointsCounter">0</span><span class="text-lg text-gray-500 ml-2">POINTS</span></div>
+        </div>
+        <div class="metric-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-left">
+          <div class="flex items-center mb-4"><div class="p-3 rounded-lg bg-purple-100 mr-4"><i data-feather="users" class="text-purple-600"></i></div><h3 class="text-xl font-semibold text-gray-700">Team Support Points</h3></div>
+          <div class="flex items-end"><span class="text-4xl font-bold text-gray-800" id="teamSupportCounter">0</span><span class="text-lg text-gray-500 ml-2">POINTS</span></div>
+        </div>
+      </div>
+      <!-- Progress chart -->
+      <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 max-w-2xl mx-auto" data-aos="fade-up">
+        <h3 class="text-xl font-semibold text-center text-gray-700 mb-6">Target Progress (2000)</h3>
+        <div class="flex flex-col items-center">
+          <div class="relative w-64 h-64 mb-6">
+            <canvas id="progressChart"></canvas>
+            <div class="absolute inset-0 flex items-center justify-center flex-col">
+              <span class="text-3xl font-bold text-gray-800" id="progressPercentage">0%</span>
+              <span class="text-base text-gray-600 mt-2" id="progressText">0 / 2000 New Partners</span>
+            </div>
+          </div>
+          <p class="text-gray-600 text-center">Current progress towards our global target. Join us to contribute!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section id="leaderboard" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-2" data-aos="fade-up">Top Performers Leaderboard</h2>
+      <p class="text-center text-sm text-gray-500 mb-10" data-aos="fade-up" data-aos-delay="60">Click on any name to view their Team Orbit</p>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden" data-aos="fade-up">
+        <div class="p-4 border-b border-gray-100 bg-gradient-to-r from-green-50 to-blue-50">
+          <div class="relative max-w-sm">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i data-feather="search" class="text-gray-400 w-4 h-4"></i></div>
+            <input type="text" id="lbSearch" placeholder="Search by Name or Customer ID…"
+              class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-300 transition bg-white"/>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200" style="min-width:900px">
+            <thead>
+              <tr style="background:linear-gradient(90deg,#f8fafc,#f0fdf4)">
+                <th class="px-3 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-14">Rank</th>
+                <th class="px-3 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Name</th>
+                <th class="px-3 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Customer ID</th>
+                <th class="px-3 py-3 text-left text-xs font-bold uppercase tracking-wider" style="color:#2563EB">Direct Points</th>
+                <th class="px-3 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Direct Recruitment</th>
+                <th class="px-3 py-3 text-left text-xs font-bold uppercase tracking-wider" style="color:#0D9488">1st Orbit Pts</th>
+                <th class="px-3 py-3 text-left text-xs font-bold uppercase tracking-wider" style="color:#7C3AED">2nd Orbit Pts</th>
+                <th class="px-3 py-3 text-left text-xs font-bold uppercase tracking-wider" style="color:#0A8754;background:#f0fdf4">Total Points</th>
+              </tr>
+            </thead>
+            <tbody id="lbBody" class="bg-white divide-y divide-gray-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+        <!-- Rewards Section -->
+        <section id="rewards" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12" data-aos="fade-up">Achievements & Rewards</h2>
+                
+                <h3 class="text-xl font-semibold text-gray-700 mb-6" data-aos="fade-up">Top 5 Rewards</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
+                    <!-- Reward 1 -->
+                    <div class="reward-card bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-xl shadow-sm border border-gray-100 transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex justify-center mb-4">
+                            <div class="p-4 rounded-full bg-amber-100">
+                                <i data-feather="award" class="text-amber-600 w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 1</h4>
+                        <p class="text-lg font-semibold text-center text-gray-700 mb-2">Luxury Car</p>
+                        <p class="text-gray-600 text-center text-sm">Drive home in style with our premium vehicle reward</p>
+                    </div>
+                    
+                    <!-- Reward 2 -->
+                    <div class="reward-card bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl shadow-sm border border-gray-100 transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex justify-center mb-4">
+                            <div class="p-4 rounded-full bg-blue-100">
+                                <i data-feather="bike" class="text-blue-600 w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 2</h4>
+                        <p class="text-lg font-semibold text-center text-gray-700 mb-2">Royal Enfield</p>
+                        <p class="text-gray-600 text-center text-sm">High-performance bike for your active lifestyle</p>
+                    </div>
+                    
+                    <!-- Reward 3 -->
+                    <div class="reward-card bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-xl shadow-sm border border-gray-100 transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex justify-center mb-4">
+                            <div class="p-4 rounded-full bg-yellow-100">
+                                <i data-feather="trending-up" class="text-yellow-600 w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 3</h4>
+                        <p class="text-lg font-semibold text-center text-gray-700 mb-2">Pulser bike</p>
+                        <p class="text-gray-600 text-center text-sm">High-performance bike for your active lifestyle</p>
+                    </div>
+                    
+                    <!-- Reward 4 -->
+                    <div class="reward-card bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-xl shadow-sm border border-gray-100 transition duration-300" data-aos="fade-up" data-aos-delay="400">
+                        <div class="flex justify-center mb-4">
+                            <div class="p-4 rounded-full bg-gray-100">
+                                <i data-feather="smartphone" class="text-gray-600 w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 4</h4>
+                        <p class="text-lg font-semibold text-center text-gray-700 mb-2">Tvs bike</p>
+                        <p class="text-gray-600 text-center text-sm">High-performance bike for your active lifestyle</p>
+                    </div>
+                    
+                    <!-- Reward 5 -->
+                    <div class="reward-card bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-xl shadow-sm border border-gray-100 transition duration-300" data-aos="fade-up" data-aos-delay="500">
+                        <div class="flex justify-center mb-4">
+                            <div class="p-4 rounded-full bg-green-100">
+                                <i data-feather="globe" class="text-green-600 w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 5</h4>
+                        <p class="text-lg font-semibold text-center text-gray-700 mb-2">iphone</p>
+                        <p class="text-gray-600 text-center text-sm">rang this category</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-700 mb-6" data-aos="fade-up">Monthly Passive Rewards</h3>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                    <!-- Monthly Reward 1 -->
+                    <div class="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 1</h4>
+                        <p class="text-2xl font-bold text-center text-green-600">₹50,000</p>
+                        <p class="text-gray-600 text-center text-sm mt-2">Monthly passive income</p>
+                    </div>
+                    
+                    <!-- Monthly Reward 2 -->
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 2</h4>
+                        <p class="text-2xl font-bold text-center text-blue-600">₹40,000</p>
+                        <p class="text-gray-600 text-center text-sm mt-2">Monthly passive income</p>
+                    </div>
+                    
+                    <!-- Monthly Reward 3 -->
+                    <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="300">
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 3</h4>
+                        <p class="text-2xl font-bold text-center text-purple-600">₹30,000</p>
+                        <p class="text-gray-600 text-center text-sm mt-2">Monthly passive income</p>
+                    </div>
+                    
+                    <!-- Monthly Reward 4 -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="400">
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 4</h4>
+                        <p class="text-2xl font-bold text-center text-amber-600">₹20,000</p>
+                        <p class="text-gray-600 text-center text-sm mt-2">Monthly passive income</p>
+                    </div>
+                    
+                    <!-- Monthly Reward 5 -->
+                    <div class="bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="500">
+                        <h4 class="text-xl font-bold text-center text-gray-800 mb-2">Top 5</h4>
+                        <p class="text-2xl font-bold text-center text-gray-600">₹10,000</p>
+                        <p class="text-gray-600 text-center text-sm mt-2">Monthly passive income</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Products Section -->
+        <section id="products" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12" data-aos="fade-up">Our Products</h2>
+                
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <button id="viewProductsBtn" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-medium transition transform hover:scale-105">
+                        View Products
+                    </button>
+                </div>
+                
+                <!-- Products Modal (hidden by default) -->
+                <div id="productsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+                    <div class="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-screen overflow-y-auto">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-2xl font-bold text-gray-800">Our Product Categories</h3>
+                                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+                                    <i data-feather="x"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <!-- Product 1 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <img src="image/Shampoo.png" alt="Product 1" class="w-full h-40 object-cover rounded-lg mb-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Growbit Shampoo</h4>
+                                    <p class="text-gray-600 text-sm">NOURISHING SHAMPOO FOR SMOOTH & SHINY HAIRS.</p>
+                                </div>
+                                
+                                <!-- Product 2 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <img src="image/Sunscreen.png" alt="Product 2" class="w-full h-40 object-cover rounded-lg mb-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Growbit Sunscreen</h4>
+                                    <p class="text-gray-600 text-sm">HYDRASHIELD BROAD SPECTRUM SUNSCREEN.</p>
+                                </div>
+                                
+                                <!-- Product 3 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <img src="image/BodyLotion.png" alt="Product 3" class="w-full h-40 object-cover rounded-lg mb-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Growbit BodyLotion</h4>
+                                    <p class="text-gray-600 text-sm">BODY BUTTOR DEEP ACTION BODY LOTION.</p>
+                                </div>
+                                
+                                <!-- Product 4 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <img src="image/BodyWash.png" alt="Product 4" class="w-full h-40 object-cover rounded-lg mb-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Growbit Body Wash</h4>
+                                    <p class="text-gray-600 text-sm">BODY WASH FOR SOFT &GLOWING SKIN.</p>
+                                </div>
+                                
+                                <!-- Product 5 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <img src="image/FaceSerum.png" alt="Product 5" class="w-full h-40 object-cover rounded-lg mb-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Growbit Face Serum</h4>
+                                    <p class="text-gray-600 text-sm">“MOISTURIZING & FAIRNESS SERUM.”</p>
+                                </div>
+                                
+                                <!-- Product 6 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                    <img src="image/FaceWash.png" alt="Product 6" class="w-full h-40 object-cover rounded-lg mb-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Growbit Face Wash</h4>
+                                    <p class="text-gray-600 text-sm">“FACE WASH FOR BRIGHT & CLEAR SKIN.”</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</div><!-- /home-page -->
+
+    <!-- Privacy Policy Page -->
+    <div id="privacy-page" class="page privacy-root">
+        <main class="privacy-wrap">
+            <header>
+                <div class="mark" style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#0ea45b,#1db978);display:grid;place-items:center;color:#fff;font-weight:800;font-family:Poppins">GG</div>
+                <div>
+                    <h1 style="margin:0;font-family:Poppins;font-size:22px">Privacy Policy — GROWBIT PRIVATE LIMITED</h1>
+                    <div class="meta" style="color:#5b6b59;font-size:13px;margin-top:6px">Effective date: <strong id="effectiveDate">[DD/MM/YYYY]</strong> · Last updated: <span id="updatedDate">[DD/MM/YYYY]</span></div>
+                </div>
+            </header>
+
+            <section class="privacy-card">
+                <div class="section-title">
+                    <h2>Overview</h2>
+                </div>
+                <p class="small" style="font-size:13px;color:#5b6b59">GROWBIT PRIVATE LIMITED ("Company", "we", "us", "our") values your privacy. This Privacy Policy explains what information we collect, why we collect it, how we use it, and the choices you have regarding your information when you use our website, mobile apps, and services.</p>
+
+                <div class="note" style="background:linear-gradient(90deg, rgba(14,164,91,0.06), rgba(29,185,120,0.03));padding:12px;border-radius:10px;color:#5b6b59;margin:12px 0">
+                    <strong>Quick note:</strong> This is a general privacy policy tailored for our referral & rewards platform. It is not legal advice — consult a lawyer for jurisdiction-specific compliance (especially for KYC, Aadhaar rules, or payment regulations).
+                </div>
+
+                <nav style="margin-top:10px">
+                    <div class="toc" style="display:flex;flex-wrap:wrap;gap:10px;margin:12px 0">
+                        <a href="#what" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">What we collect</a>
+                        <a href="#use" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">How we use</a>
+                        <a href="#share" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">Sharing</a>
+                        <a href="#security" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">Security</a>
+                        <a href="#rights" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">Your rights</a>
+                        <a href="#cookies" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">Cookies</a>
+                        <a href="#children" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">Children</a>
+                        <a href="#contact" style="font-size:13px;color:#0ea45b;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(14,164,91,0.06)">Contact</a>
+                    </div>
+                </nav>
+
+                <h2 id="what">1. Information we collect</h2>
+                <p>We collect information you provide directly and information we collect automatically when you use our services.</p>
+                <ul>
+                    <li><strong>Account & contact data:</strong> full name, email, phone number, address (city, country, ZIP).</li>
+                    <li><strong>Authentication:</strong> password hash (we never store plain passwords), OTP verification tokens.</li>
+                    <li><strong>Referral data:</strong> referral codes, sponsor ID, referral history.</li>
+                    <li><strong>Payment & transaction data:</strong> transaction records, receipts (payment provider managed — we store transaction meta).</li>
+                    <li><strong>Bank details:</strong> account holder, account number, IFSC, UPI — encrypted and used only for payouts.</li>
+                    <li><strong>Activity & usage:</strong> IP address, device info, pages visited, actions taken, logs.</li>
+                    <li><strong>Optional KYC documents:</strong> passport or driver's license if user voluntarily uploads them (for verification). These are stored securely and can be deleted on request subject to compliance).</li>
+                </ul>
+
+                <h2 id="use">2. How we use your information</h2>
+                <p>We use your data to deliver the service, run the business, comply with legal requirements and to improve the platform:</p>
+                <ul>
+                    <li>Create and manage user accounts and profiles.</li>
+                    <li>Process sign-up payments and split amounts according to our pool/commission rules.</li>
+                    <li>Track referrals, calculate commissions and points, and update leaderboards.</li>
+                    <li>Process payouts to your bank account when eligible.</li>
+                    <li>Send important communications: account alerts, OTPs, payment confirmations, notifications.</li>
+                    <li>Detect and prevent fraud, abuse or illegal activity.</li>
+                    <li>Conduct analytics and improve the product.</li>
+                </ul>
+
+                <h2 id="share">3. When we share information</h2>
+                <p>We never sell your personal information. We may share data in limited circumstances:</p>
+                <ul>
+                    <li>With trusted third parties needed to operate the service — payment processors, SMS/email providers, analytics providers.</li>
+                    <li>With payment processors to complete transactions (they receive only the data necessary to process payments).</li>
+                    <li>With legal or regulatory authorities when required by law or to protect our rights.</li>
+                    <li>In connection with a merger, acquisition, or sale of assets (with notice to users where required).</li>
+                </ul>
+
+                <h2 id="security">4. Data security & storage</h2>
+                <p>We use industry-standard technical and organizational measures to protect your data, including encryption in transit (HTTPS) and encryption at rest for sensitive fields. Access to user data is restricted and logged.</p>
+                <p>However, no system is 100% secure. If we detect a breach, we will notify affected users and authorities as required by law.</p>
+
+                <h2 id="rights">5. Your rights & choices</h2>
+                <p>You have rights regarding your personal data (subject to local laws):</p>
+                <ul>
+                    <li><strong>Access:</strong> request a copy of your data.</li>
+                    <li><strong>Correction:</strong> ask us to correct inaccurate data.</li>
+                    <li><strong>Deletion:</strong> request deletion of your account and data (some records may be retained for legal/compliance reasons).</li>
+                    <li><strong>Opt-out:</strong> opt out of promotional emails; transactional messages (OTP, receipts) cannot be opted out.</li>
+                </ul>
+                <p>To exercise these rights, contact us at the details below. We may ask for proof of identity before fulfilling requests.</p>
+
+                <h2 id="cookies">6. Cookies & tracking</h2>
+                <p>We use cookies and similar technologies to operate the site, improve performance, and provide analytics. You can manage cookie preferences via your browser settings; disabling cookies may affect functionality.</p>
+
+                <h2 id="children">7. Children</h2>
+                <p>Our services are intended for users aged 18 and above. We do not knowingly collect personal information from children under 18. If a parent believes we have collected such data, contact us immediately to remove it.</p>
+
+                <h2 id="retention">8. Data retention</h2>
+                <p>We retain personal data as long as necessary for the purposes described (account maintenance, legal obligations, dispute resolution). When no longer needed, data is securely deleted or anonymized.</p>
+
+                <h2 id="international">9. International transfers</h2>
+                <p>Our systems may store and process data in different countries. By using our service, you consent to cross-border transfer, storage and processing of your information in jurisdictions where we operate.</p>
+
+                <h2 id="changes">10. Changes to this policy</h2>
+                <p>We may update this Privacy Policy. If we make material changes, we will notify users (via email or site notice) and update the "Effective Date" above.</p>
+
+                <h2 id="contact">11. Contact us</h2>
+                <p>If you have questions, requests or concerns about your privacy, contact our Data Protection Team:</p>
+                <div class="contact" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px">
+                    <div><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#f784828787988583b7908592929990859880d994989a" style="color:#0ea45b;text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="add9c5c8cadfc8c8c3cadfc2daceccdfc8edcac0ccc4c183cec2c0">[email&#160;protected]</span></a></div>
+                    <div><strong>Phone:</strong> <a href="tel:+911234567890" style="color:#0ea45b;text-decoration:none;font-weight:600">+91-8318873808</a></div>
+                    <div><strong>Address:</strong> <span class="small" style="font-size:13px;color:#5b6b59">[India , Chhattishgarh , Durg]</span></div>
+                </div>
+
+                <footer style="margin-top:18px">
+                    <p class="small" style="font-size:13px;color:#5b6b59">GREEN GROW ORBIT MARKET • © <span id="year"></span>. All rights reserved.</p>
+                </footer>
+            </section>
+        </main>
+    </div>
+
+
+    <!-- Terms & Conditions Page -->
+    <div id="terms-page" class="page">
+        <header class="terms-header">
+            <h1>Terms & Conditions</h1>
+            <p>GREEN GROW ORBIT MARKET</p>
+        </header>
+
+        <main class="terms-main">
+            <h2 style="color:#0c7c3a">1. Acceptance of Terms</h2>
+            <p>By registering with GROWBIT PRIVATE LIMITED, you agree to abide by these Terms & Conditions. Please read them carefully before using our services.</p>
+
+            <h2 style="color:#0c7c3a">2. Non-Refundable Policy</h2>
+            <p>All payments made for joining fees, products, or services are strictly <strong>non-refundable</strong>. Once payment is completed, it cannot be reversed, canceled, or refunded under any circumstances.</p>
+
+            <h2 style="color:#0c7c3a">3. No Return Policy</h2>
+            <p>Products or services provided by GREEN GROW PRIVATE LIMITED are not eligible for returns or exchanges. All purchases are considered final.</p>
+
+            <h2 style="color:#0c7c3a">4. User Responsibilities</h2>
+            <p>Users must provide accurate personal details during registration. Misuse of the platform, fraudulent activities, or violation of rules may result in suspension or termination of your account.</p>
+
+            <h2 style="color:#0c7c3a">5. Earnings Disclaimer</h2>
+            <p>Income or rewards depend on user efforts and participation. The company does not guarantee fixed earnings, rewards, or profits.</p>
+
+            <h2 style="color:#0c7c3a">6. Compliance with Law</h2>
+            <p>All members must comply with local laws and regulations. Any unlawful activity will lead to account termination and legal action if necessary.</p>
+
+            <h2 style="color:#0c7c3a">7. Changes to Terms</h2>
+            <p>GREEN GROW ORBIT MARKET reserves the right to modify or update these Terms & Conditions at any time. Updates will be effective once published on the website.</p>
+
+            <h2 style="color:#0c7c3a">8. Contact Information</h2>
+            <p>If you have questions about these Terms, contact us at:</p>
+            <p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d6a7f6868636a7f627a6e6c7f684d6a606c6461236e6260">[email&#160;protected]</a><br>
+               Phone: +91-8318873808<br>
+               Address: [India , Chhattishgarh , Durg]</p>
+        </main>
+
+        <footer style="text-align:center;padding:20px;background:#222;color:#fff;margin-top:30px">
+            <p>&copy; <span id="termsYear"></span> GREEN GROW ORBIT MARKET. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">GROWBIT PRIVATE LIMITED</h3>
+                    <p class="text-gray-400">Growing Together, Globally. Join our community for sustainable growth and success.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#global-pool" class="text-gray-400 hover:text-white transition" onclick="showPage('home')">Global Pool</a></li>
+                        <li><a href="#leaderboard" class="text-gray-400 hover:text-white transition" onclick="showPage('home')">Leaderboard</a></li>
+                        <li><a href="#rewards" class="text-gray-400 hover:text-white transition" onclick="showPage('home')">Rewards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('privacy')">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('terms')">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400"><i data-feather="mail" class="mr-2 w-4 h-4"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ffbe7eae8fdeaeae1e8fde0f8eceefdeacfe8e2eee6e3a1ece0e2">[email&#160;protected]</a></li>
+                        <li class="flex items-center text-gray-400"><i data-feather="phone" class="mr-2 w-4 h-4"></i>8318873808</li>
+                        <li class="flex items-center text-gray-400"><i data-feather="map-pin" class="mr-2 w-4 h-4"></i> 
+                            1 Floor 110 Office Durg, Koliyapuri Rishabh Trade, Durg-491001, Chhattisgarh, India </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 GROWBIT PRIVATE LIMITED. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+// =====================================================
+// PAGE NAVIGATION
+// =====================================================
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var el = document.getElementById(name + '-page');
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Init libraries
+AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+feather.replace();
+
+// =====================================================
+// METRIC COUNTERS
+// =====================================================
+function animCounter(id, target, dur) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  dur = dur || 2000;
+  var inc = target / (dur / 16), cur = 0;
+  var t = setInterval(function() {
+    cur += inc;
+    if (cur >= target) { cur = target; clearInterval(t); }
+    el.textContent = Math.floor(cur).toLocaleString();
+  }, 16);
+}
+setTimeout(function() {
+  animCounter('globalPoolCounter', 2500);
+  animCounter('totalPointsCounter', 10);
+  animCounter('teamSupportCounter', 340);
+}, 500);
+
+// =====================================================
+// PROGRESS CHART
+// =====================================================
+(function() {
+  var canvas = document.getElementById('progressChart');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var TARGET = 2000, CURRENT = 1;
+  var pct = (CURRENT / TARGET) * 100;
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: { datasets: [{ data: [pct, 100 - pct], backgroundColor: ['#0A8754', '#E5E7EB'], borderWidth: 0 }] },
+    options: {
+      cutout: '80%', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      animation: { animateScale: true, animateRotate: true }
+    }
+  });
+  var p = 0, d = 0, inc2 = CURRENT / 50;
+  var iv = setInterval(function() {
+    p += 2; d += inc2;
+    if (p >= Math.floor(pct)) { p = Math.floor(pct); d = CURRENT; clearInterval(iv); }
+    document.getElementById('progressPercentage').textContent = p + '%';
+    document.getElementById('progressText').textContent = Math.floor(d) + ' / ' + TARGET + ' New Partners';
+  }, 40);
+})();
+
+// =====================================================
+// LEADERBOARD DATA
+// =====================================================
+var leaderboardData = [
+  { "rank": 1, "name": "BHAIYA LAL VERMA", "customerId": "GG5091", "points": "10", "recruits": 1 },
+  { "rank": 2, "name": "DHAL SINGH VERMA", "customerId": "GG5098", "points": "0000", "recruits": 0 },
+  { "rank": 3, "name": "Ashwant", "customerId": "GG5013", "points": "0000", "recruits": 0 },
+  { "rank": 4, "name": "SUNITA NIRMALKAR", "customerId": "GG5097", "points": "0000", "recruits": 0 },
+  { "rank": 5, "name": "Abdhesh Kushawaha", "customerId": "GG5010", "points": "0000", "recruits": 0 },
+  { "rank": 6, "name": "MD PARVEZ", "customerId": "GG5025", "points": "0000", "recruits": 0 },
+  { "rank": 7, "name": "TAHAL SINGH NIRMALKAR", "customerId": "GG5129", "points": "0000", "recruits": 0 },
+  { "rank": 8, "name": "DAMINI SAHU", "customerId": "GG5093", "points": "0000", "recruits": 0 },
+  { "rank": 9, "name": "ROHIT KUMAR JANGHEL", "customerId": "GG5134", "points": "0000", "recruits": 0 },
+  { "rank": 10, "name": "BALARAM SAHU", "customerId": "GG5098", "points": "0000", "recruits": 0 },
+  { "rank": 11, "name": "Gulshan kumar sahu", "customerId": "GG5016", "points": "0000", "recruits": 0 },
+  { "rank": 12, "name": "BHOLARAM SAHU", "customerId": "GG5139", "points": "0000", "recruits": 0 },
+  { "rank": 13, "name": "LEKH RAM SAHU", "customerId": "GG5146", "points": "0000", "recruits": 0 },
+  { "rank": 14, "name": "SUSHMA YADAV", "customerId": "GG5102", "points": "0000", "recruits": 0 },
+  { "rank": 15, "name": "TIKESHWARI KHARE", "customerId": "GG5094", "points": "0000", "recruits": 0 },
+  { "rank": 16, "name": "DUKHHARAN NISHAD", "customerId": "GG5084", "points": "0000", "recruits": 0 },
+  { "rank": 17, "name": "NEHA VERMA", "customerId": "GG5081", "points": "0000", "recruits": 0 },
+  { "rank": 18, "name": "UTTARA BAI THANAVAR SAHU", "customerId": "GG5133", "points": "0000", "recruits": 0 },
+  { "rank": 19, "name": "VIJAY KUMAR SAHU", "customerId": "GG5089", "points": "0000", "recruits": 0 },
+  { "rank": 20, "name": "Lalchand Sahu", "customerId": "GG5014", "points": "0000", "recruits": 0 },
+  { "rank": 21, "name": "BHARAT NISHAD", "customerId": "GG5054", "points": "0000", "recruits": 0 },
+  { "rank": 22, "name": "Duleshwar kumar rajak", "customerId": "GG5022", "points": "0000", "recruits": 0 },
+  { "rank": 23, "name": "VINEETA PAL", "customerId": "GG5118", "points": "0000", "recruits": 0 },
+  { "rank": 24, "name": "Padum lal sahu", "customerId": "GG5029", "points": "0000", "recruits": 0 },
+  { "rank": 25, "name": "Sonbati", "customerId": "GG5018", "points": "0000", "recruits": 0 },
+  { "rank": 26, "name": "KANTI THAKUR", "customerId": "GG5058", "points": "0000", "recruits": 0 },
+  { "rank": 27, "name": "Bina Dewangan", "customerId": "GG5017", "points": "0000", "recruits": 0 },
+  { "rank": 28, "name": "Rizwan Khan", "customerId": "GG5015", "points": "0000", "recruits": 0 },
+  { "rank": 29, "name": "Komin Sahu", "customerId": "GG5032", "points": "0000", "recruits": 0 },
+  { "rank": 30, "name": "TRASIT DEWANGAN", "customerId": "GG5043", "points": "0000", "recruits": 0 },
+  { "rank": 31, "name": "Jageshwari Sahu", "customerId": "GG5011", "points": "0000", "recruits": 0 },
+  { "rank": 32, "name": "KALYANI NISHAD", "customerId": "GG5042", "points": "0000", "recruits": 0 },
+  { "rank": 33, "name": "UTTAM Sapha", "customerId": "GG5039", "points": "0000", "recruits": 0 },
+  { "rank": 34, "name": "Upendra Deshmukh", "customerId": "GG5031", "points": "0000", "recruits": 0 },
+  { "rank": 35, "name": "PRAVIN KUMAR PAUSARYA", "customerId": "GG5060", "points": "0000", "recruits": 0 },
+  { "rank": 36, "name": "DEEPAK DEWANGAN", "customerId": "GG5053", "points": "0000", "recruits": 0 },
+  { "rank": 37, "name": "LAXMI THAKUR", "customerId": "GG5059", "points": "0000", "recruits": 0 },
+  { "rank": 38, "name": "kusumlatha", "customerId": "GG5027", "points": "0000", "recruits": 0 },
+  { "rank": 39, "name": "Chandrakala", "customerId": "GG5024", "points": "0000", "recruits": 0 },
+  { "rank": 40, "name": "PRADIP KUMAR", "customerId": "GG5046", "points": "0000", "recruits": 0 },
+  { "rank": 41, "name": "OKESH DHANKAR", "customerId": "GG5077", "points": "0000", "recruits": 0 },
+  { "rank": 42, "name": "Dhamin Sahu", "customerId": "GG5034", "points": "000", "recruits": 0 },
+  { "rank": 43, "name": "BED BAI YADAV", "customerId": "GG5037", "points": "000", "recruits": 0 },
+  { "rank": 44, "name": "MANOJ KUMAR", "customerId": "GG5036", "points": "000", "recruits": 0 },
+  { "rank": 45, "name": "Abdul Aziz Mondal", "customerId": "GG5012", "points": "0000", "recruits": 0 },
+  { "rank": 46, "name": "prema", "customerId": "GG5019", "points": "0000", "recruits": 0 },
+  { "rank": 47, "name": "KEJA BAI", "customerId": "GG5020", "points": "0000", "recruits": 0 },
+  { "rank": 48, "name": "Chitrekha sahu", "customerId": "GG5021", "points": "0000", "recruits": 0 },
+  { "rank": 49, "name": "Girja bai", "customerId": "GG5023", "points": "0000", "recruits": 0 },
+  { "rank": 50, "name": "Haridash khuswaha", "customerId": "GG5026", "points": "0000", "recruits": 0 },
+  { "rank": 51, "name": "SUMAN KUSHWAHA", "customerId": "GG5035", "points": "0000", "recruits": 0 },
+  { "rank": 52, "name": "UDASA BAI DEWANGAN", "customerId": "GG5038", "points": "0000", "recruits": 0 },
+  { "rank": 53, "name": "Gaindi Sapha", "customerId": "GG5033", "points": "0000", "recruits": 0 },
+  { "rank": 54, "name": "RUPA SAHU", "customerId": "GG5128", "points": "0000", "recruits": 0 },
+  { "rank": 55, "name": "DULARI BAI DESHMUKH", "customerId": "GG5040", "points": "0000", "recruits": 0 },
+  { "rank": 56, "name": "ANUSUIYA BAI", "customerId": "GG5041", "points": "0000", "recruits": 0 },
+  { "rank": 57, "name": "SARASVATI SONI", "customerId": "GG5044", "points": "0000", "recruits": 0 },
+  { "rank": 58, "name": "RAJNI BAI", "customerId": "GG5045", "points": "0000", "recruits": 0 },
+  { "rank": 59, "name": "TIKESHWAR CHANDRAKAR", "customerId": "GG5047", "points": "0000", "recruits": 0 },
+  { "rank": 60, "name": "SANTOSHI", "customerId": "GG5048", "points": "0000", "recruits": 0 },
+  { "rank": 61, "name": "PUNAM NISHAD", "customerId": "GG5049", "points": "0000", "recruits": 0 },
+  { "rank": 62, "name": "RITU SAHU", "customerId": "GG5050", "points": "0000", "recruits": 0 },
+  { "rank": 63, "name": "BHOJ RAM SAHU", "customerId": "GG5051", "points": "0000", "recruits": 0 },
+  { "rank": 64, "name": "RAVINDRA KUMAR", "customerId": "GG5052", "points": "0000", "recruits": 0 },
+  { "rank": 65, "name": "KIRAN THAKUR", "customerId": "GG5055", "points": "0000", "recruits": 0 },
+  { "rank": 66, "name": "SHARDA SAHU", "customerId": "GG5056", "points": "0000", "recruits": 0 },
+  { "rank": 67, "name": "LALESHWARI SAHU", "customerId": "GG5129", "points": "0000", "recruits": 0 },
+  { "rank": 68, "name": "POOJA DEWANGAN", "customerId": "GG5057", "points": "0000", "recruits": 0 },
+  { "rank": 69, "name": "RENUKA", "customerId": "GG5061", "points": "0000", "recruits": 0 },
+  { "rank": 70, "name": "MAJUM", "customerId": "GG5062", "points": "0000", "recruits": 0 },
+  { "rank": 71, "name": "RAJKUMARI TANDAN", "customerId": "GG5063", "points": "0000", "recruits": 0 },
+  { "rank": 72, "name": "MOHIT KUSHWAH", "customerId": "GG5064", "points": "0000", "recruits": 0 },
+  { "rank": 73, "name": "MOTIN BAI", "customerId": "GG5065", "points": "0000", "recruits": 0 },
+  { "rank": 74, "name": "LEELA THAKUR", "customerId": "GG5066", "points": "0000", "recruits": 0 },
+  { "rank": 75, "name": "JAGRITI SAHU", "customerId": "GG5067", "points": "0000", "recruits": 0 },
+  { "rank": 76, "name": "DHANESHWAR", "customerId": "GG5068", "points": "0000", "recruits": 0 },
+  { "rank": 77, "name": "KHEMAN THAKUR", "customerId": "GG5069", "points": "0000", "recruits": 0 },
+  { "rank": 78, "name": "AHILYA DESHMUKH", "customerId": "GG5070", "points": "0000", "recruits": 0 },
+  { "rank": 79, "name": "MINA THAKUR", "customerId": "GG5071", "points": "0000", "recruits": 0 },
+  { "rank": 80, "name": "FULESHWARI YADAV", "customerId": "GG5072", "points": "0000", "recruits": 0 },
+  { "rank": 81, "name": "MANOJ YADAV", "customerId": "GG5073", "points": "0000", "recruits": 0 },
+  { "rank": 82, "name": "ANITA DEWANGAN", "customerId": "GG5074", "points": "0000", "recruits": 0 },
+  { "rank": 83, "name": "SHARDA BAI DHOBI", "customerId": "GG5075", "points": "0000", "recruits": 0 },
+  { "rank": 84, "name": "KUMARI BAI DHIWAR", "customerId": "GG5076", "points": "0000", "recruits": 0 },
+  { "rank": 85, "name": "UPREKHA THAKUR", "customerId": "GG5078", "points": "0000", "recruits": 0 },
+  { "rank": 86, "name": "SURJA BAI SAHU", "customerId": "GG5079", "points": "0000", "recruits": 0 },
+  { "rank": 87, "name": "KIRAN SAHU", "customerId": "GG5080", "points": "0000", "recruits": 0 },
+  { "rank": 88, "name": "CHHAYA SAHU", "customerId": "GG5082", "points": "0000", "recruits": 0 },
+  { "rank": 89, "name": "DEVKI YADAV", "customerId": "GG5083", "points": "0000", "recruits": 0 },
+  { "rank": 90, "name": "ASHWANI SAHU", "customerId": "GG5085", "points": "0000", "recruits": 0 },
+  { "rank": 91, "name": "HEMANT YADAV", "customerId": "GG5086", "points": "0000", "recruits": 0 },
+  { "rank": 92, "name": "GOVIND PAL", "customerId": "GG5088", "points": "0000", "recruits": 0 },
+  { "rank": 93, "name": "GAYATRI SAHU", "customerId": "GG5090", "points": "0000", "recruits": 0 },
+  { "rank": 94, "name": "JAIN KUMAR SAHU", "customerId": "GG5092", "points": "0000", "recruits": 0 },
+  { "rank": 95, "name": "RAMESH KUMAR SAHU", "customerId": "GG5103", "points": "0000", "recruits": 0 },
+  { "rank": 96, "name": "TEENA DEWANGAN", "customerId": "GG5105", "points": "0000", "recruits": 0 },
+  { "rank": 97, "name": "SUSHIL SAHU", "customerId": "GG5099", "points": "0000", "recruits": 0 },
+  { "rank": 98, "name": "BINDIYA NISAD", "customerId": "GG5110", "points": "0000", "recruits": 0 },
+  { "rank": 99, "name": "AJAY PATEL", "customerId": "GG5111", "points": "0000", "recruits": 0 },
+  { "rank": 100, "name": "RANJITA WADKAR", "customerId": "GG5096", "points": "0000", "recruits": 0 },
+  { "rank": 101, "name": "DHANESHVARI VARMA", "customerId": "GG5104", "points": "0000", "recruits": 0 },
+  { "rank": 102, "name": "ASLAM", "customerId": "GG5112", "points": "0000", "recruits": 0 },
+  { "rank": 103, "name": "HIMANSHU PATEL", "customerId": "GG5113", "points": "0000", "recruits": 0 },
+  { "rank": 104, "name": "ARJUN SAROJ", "customerId": "GG5114", "points": "0000", "recruits": 0 },
+  { "rank": 105, "name": "SANTOSH KUMAR NAGWANSHI", "customerId": "GG5115", "points": "0000", "recruits": 0 },
+  { "rank": 106, "name": "NEESHU DHANGAR", "customerId": "GG5119", "points": "0000", "recruits": 0 },
+  { "rank": 107, "name": "YAMAN KUMAR SAHU", "customerId": "GG5120", "points": "0000", "recruits": 0 },
+  { "rank": 108, "name": "AFROZ", "customerId": "GG5117", "points": "0000", "recruits": 0 },
+  { "rank": 109, "name": "SARSWATI BAI BAGHEL", "customerId": "GG5121", "points": "0000", "recruits": 0 },
+  { "rank": 110, "name": "PAVANREKHA BHUARYA", "customerId": "GG5122", "points": "0000", "recruits": 0 },
+  { "rank": 111, "name": "SHISHUPAL", "customerId": "GG5087", "points": "0000", "recruits": 0 },
+  { "rank": 112, "name": "KHILAVAN KUMAR VERMA", "customerId": "GG5132", "points": "0000", "recruits": 0 },
+  { "rank": 113, "name": "SHUBHAM AMBADE", "customerId": "GG5127", "points": "0000", "recruits": 0 },
+  { "rank": 114, "name": "RAJESH PANDIT", "customerId": "GG5131", "points": "0000", "recruits": 0 },
+  { "rank": 115, "name": "SUNIL PAL", "customerId": "GG5127", "points": "0000", "recruits": 0 },
+  { "rank": 116, "name": "INDRA KUMAR SAHU", "customerId": "GG5128", "points": "0000", "recruits": 0 },
+  { "rank": 117, "name": "TULA RAM YADAV", "customerId": "GG5135", "points": "0000", "recruits": 0 },
+  { "rank": 118, "name": "NURJAHAN BANU-", "customerId": "GG5136", "points": "0000", "recruits": 0 },
+  { "rank": 119, "name": "AKANKSHA MASIH-", "customerId": "GG5137", "points": "0000", "recruits": 0 },
+  { "rank": 120, "name": "MANJU YADAV-", "customerId": "GG5138", "points": "0000", "recruits": 0 },
+  { "rank": 121, "name": "DURGESH KUMAR-", "customerId": "GG5125", "points": "0000", "recruits": 0 },
+  { "rank": 122, "name": "MANSINGH SAHU", "customerId": "GG5140", "points": "0000", "recruits": 0 },
+  { "rank": 113, "name": "LAXMI-", "customerId": "GG5095", "points": "0000", "recruits": 0 },
+  { "rank": 124, "name": "PURENDRA KUMAR-", "customerId": "GG5096", "points": "0000", "recruits": 0 },
+  { "rank": 125, "name": "AJAY TIWARI-", "customerId": "GG5141", "points": "0000", "recruits": 0 },
+  { "rank": 126, "name": "PRITI VERMA-", "customerId": "GG5095", "points": "0000", "recruits": 0 },
+  { "rank": 127, "name": "TEJ PRAKASH-", "customerId": "GG5093", "points": "0000", "recruits": 0 },
+  { "rank": 128, "name": "SEEMA GOYAL-", "customerId": "GG5101", "points": "0000", "recruits": 0 },
+  { "rank": 129, "name": "ROHIT KUMAR PATEL-", "customerId": "GG5100", "points": "0000", "recruits": 0 },
+  { "rank": 130, "name": "FAHIMUR RAHMAN-", "customerId": "GG5108", "points": "0000", "recruits": 0 },
+  { "rank": 131, "name": "SATYAKAM SINGH RAJPUT-", "customerId": "GG5117", "points": "0000", "recruits": 0 },
+  { "rank": 132, "name": "KHELENDRA KUMAR VERMA-", "customerId": "GG5142", "points": "0000", "recruits": 0 },
+  { "rank": 133, "name": "HASEENA BEGAM ANSARI-", "customerId": "GG5143", "points": "0000", "recruits": 0 },
+  { "rank": 134, "name": "NAFISHA BEE-", "customerId": "GG5144", "points": "0000", "recruits": 0 },
+  { "rank": 135, "name": "BHAVESH KUMAR", "customerId": "GG5145", "points": "0000", "recruits": 0 },
+  { "rank": 136, "name": "RUKHMANI", "customerId": "GG5147", "points": "0000", "recruits": 0 },
+  { "rank": 137, "name": "RAKESH KUMAR", "customerId": "GG5148", "points": "0000", "recruits": 0 },
+  { "rank": 138, "name": "XXXXXXXX", "customerId": "GG5100", "points": "0000", "recruits": 0 },
+  { "rank": 139, "name": "xxxxxxxx", "customerId": "GG5101", "points": "0000", "recruits": 0 },
+  { "rank": 140, "name": "xxxxxxxx", "customerId": "GG5102", "points": "0000", "recruits": 0 },
+  { "rank": 140, "name": "xxxxxxxx", "customerId": "GG5104", "points": "0000", "recruits": 0 },
+  { "rank": 139, "name": "xxxxxxxx", "customerId": "GG5106", "points": "0000", "recruits": 0 },
+  { "rank": 13, "name": "xxxxxxxx", "customerId": "GG5107", "points": "0000", "recruits": 0 },
+  { "rank": 135, "name": "xxxxxxxx", "customerId": "GG5108", "points": "0000", "recruits": 0 },
+  { "rank": 136, "name": "xxxxxxxx", "customerId": "GG5109", "points": "0000", "recruits": 0 },
+  { "rank": 137, "name": "xxxxxxxx", "customerId": "GG5116", "points": "0000", "recruits": 0 },
+  { "rank": 138, "name": "xxxxxxxx", "customerId": "GG5123", "points": "0000", "recruits": 0 },
+  { "rank": 139, "name": "xxxxxxxx", "customerId": "GG5124", "points": "0000", "recruits": 0 },
+  { "rank": 140, "name": "xxxxxxxx", "customerId": "GG5125", "points": "0000", "recruits": 0 },
+  { "rank": 135, "name": "xxxxxxxx", "customerId": "GG5126", "points": "0000", "recruits": 0 }, 
+{ "rank": 129, "name": "xxxxxxxx", "customerId": "GG5130", "points": "0000", "recruits": 0 },
+{ "rank": 130, "name": "xxxxxxxx", "customerId": "GG5131", "points": "0000", "recruits": 0 },
+{ "rank": 131, "name": "xxxxxxxx", "customerId": "GG5132", "points": "0000", "recruits": 0 },
+
+
+
+
+
+
+
+
+
+
+{ "rank": 140, "name": "xxxxxxxx", "customerId": "GG5149", "points": "0000", "recruits": 0 },
+
+{ "rank": 141, "name": "xxxxxxxx", "customerId": "GG5150", "points": "0000", "recruits": 0 },
+{ "rank": 142, "name": "xxxxxxxx", "customerId": "GG5151", "points": "0000", "recruits": 0 },
+{ "rank": 143, "name": "xxxxxxxx", "customerId": "GG5152", "points": "0000", "recruits": 0 },
+{ "rank": 144, "name": "xxxxxxxx", "customerId": "GG5153", "points": "0000", "recruits": 0 },
+{ "rank": 145, "name": "xxxxxxxx", "customerId": "GG5154", "points": "0000", "recruits": 0 },
+{ "rank": 146, "name": "xxxxxxxx", "customerId": "GG5155", "points": "0000", "recruits": 0 },
+{ "rank": 147, "name": "xxxxxxxx", "customerId": "GG5156", "points": "0000", "recruits": 0 },
+{ "rank": 148, "name": "xxxxxxxx", "customerId": "GG5157", "points": "0000", "recruits": 0 },
+{ "rank": 149, "name": "xxxxxxxx", "customerId": "GG5158", "points": "0000", "recruits": 0 },
+{ "rank": 150, "name": "xxxxxxxx", "customerId": "GG5159", "points": "0000", "recruits": 0 },
+
+{ "rank": 151, "name": "xxxxxxxx", "customerId": "GG5160", "points": "0000", "recruits": 0 },
+{ "rank": 152, "name": "xxxxxxxx", "customerId": "GG5161", "points": "0000", "recruits": 0 },
+{ "rank": 153, "name": "xxxxxxxx", "customerId": "GG5162", "points": "0000", "recruits": 0 },
+{ "rank": 154, "name": "xxxxxxxx", "customerId": "GG5163", "points": "0000", "recruits": 0 },
+{ "rank": 155, "name": "xxxxxxxx", "customerId": "GG5164", "points": "0000", "recruits": 0 },
+{ "rank": 156, "name": "xxxxxxxx", "customerId": "GG5165", "points": "0000", "recruits": 0 },
+{ "rank": 157, "name": "xxxxxxxx", "customerId": "GG5166", "points": "0000", "recruits": 0 },
+{ "rank": 158, "name": "xxxxxxxx", "customerId": "GG5167", "points": "0000", "recruits": 0 },
+{ "rank": 159, "name": "xxxxxxxx", "customerId": "GG5168", "points": "0000", "recruits": 0 },
+{ "rank": 160, "name": "xxxxxxxx", "customerId": "GG5169", "points": "0000", "recruits": 0 },
+
+{ "rank": 161, "name": "xxxxxxxx", "customerId": "GG5170", "points": "0000", "recruits": 0 },
+{ "rank": 162, "name": "xxxxxxxx", "customerId": "GG5171", "points": "0000", "recruits": 0 },
+{ "rank": 163, "name": "xxxxxxxx", "customerId": "GG5172", "points": "0000", "recruits": 0 },
+{ "rank": 164, "name": "xxxxxxxx", "customerId": "GG5173", "points": "0000", "recruits": 0 },
+{ "rank": 165, "name": "xxxxxxxx", "customerId": "GG5174", "points": "0000", "recruits": 0 },
+{ "rank": 166, "name": "xxxxxxxx", "customerId": "GG5175", "points": "0000", "recruits": 0 },
+{ "rank": 167, "name": "xxxxxxxx", "customerId": "GG5176", "points": "0000", "recruits": 0 },
+{ "rank": 168, "name": "xxxxxxxx", "customerId": "GG5177", "points": "0000", "recruits": 0 },
+{ "rank": 169, "name": "xxxxxxxx", "customerId": "GG5178", "points": "0000", "recruits": 0 },
+{ "rank": 170, "name": "xxxxxxxx", "customerId": "GG5179", "points": "0000", "recruits": 0 },
+
+{ "rank": 171, "name": "xxxxxxxx", "customerId": "GG5180", "points": "0000", "recruits": 0 },
+{ "rank": 172, "name": "xxxxxxxx", "customerId": "GG5181", "points": "0000", "recruits": 0 },
+{ "rank": 173, "name": "xxxxxxxx", "customerId": "GG5182", "points": "0000", "recruits": 0 },
+{ "rank": 174, "name": "xxxxxxxx", "customerId": "GG5183", "points": "0000", "recruits": 0 },
+{ "rank": 175, "name": "xxxxxxxx", "customerId": "GG5184", "points": "0000", "recruits": 0 },
+{ "rank": 176, "name": "xxxxxxxx", "customerId": "GG5185", "points": "0000", "recruits": 0 },
+{ "rank": 177, "name": "xxxxxxxx", "customerId": "GG5186", "points": "0000", "recruits": 0 },
+{ "rank": 178, "name": "xxxxxxxx", "customerId": "GG5187", "points": "0000", "recruits": 0 },
+{ "rank": 179, "name": "xxxxxxxx", "customerId": "GG5188", "points": "0000", "recruits": 0 },
+{ "rank": 180, "name": "xxxxxxxx", "customerId": "GG5189", "points": "0000", "recruits": 0 },
+
+{ "rank": 181, "name": "xxxxxxxx", "customerId": "GG5190", "points": "0000", "recruits": 0 },
+{ "rank": 182, "name": "xxxxxxxx", "customerId": "GG5191", "points": "0000", "recruits": 0 },
+{ "rank": 183, "name": "xxxxxxxx", "customerId": "GG5192", "points": "0000", "recruits": 0 },
+{ "rank": 184, "name": "xxxxxxxx", "customerId": "GG5193", "points": "0000", "recruits": 0 },
+{ "rank": 185, "name": "xxxxxxxx", "customerId": "GG5194", "points": "0000", "recruits": 0 },
+{ "rank": 186, "name": "xxxxxxxx", "customerId": "GG5195", "points": "0000", "recruits": 0 },
+{ "rank": 187, "name": "xxxxxxxx", "customerId": "GG5196", "points": "0000", "recruits": 0 },
+{ "rank": 188, "name": "xxxxxxxx", "customerId": "GG5197", "points": "0000", "recruits": 0 },
+{ "rank": 189, "name": "xxxxxxxx", "customerId": "GG5198", "points": "0000", "recruits": 0 },
+{ "rank": 190, "name": "xxxxxxxx", "customerId": "GG5199", "points": "0000", "recruits": 0 },
+
+{ "rank": 191, "name": "xxxxxxxx", "customerId": "GG5200", "points": "0000", "recruits": 0 },
+{ "rank": 192, "name": "xxxxxxxx", "customerId": "GG5201", "points": "0000", "recruits": 0 },
+{ "rank": 193, "name": "xxxxxxxx", "customerId": "GG5202", "points": "0000", "recruits": 0 },
+{ "rank": 194, "name": "xxxxxxxx", "customerId": "GG5203", "points": "0000", "recruits": 0 },
+{ "rank": 195, "name": "xxxxxxxx", "customerId": "GG5204", "points": "0000", "recruits": 0 },
+{ "rank": 196, "name": "xxxxxxxx", "customerId": "GG5205", "points": "0000", "recruits": 0 },
+{ "rank": 197, "name": "xxxxxxxx", "customerId": "GG5206", "points": "0000", "recruits": 0 },
+{ "rank": 198, "name": "xxxxxxxx", "customerId": "GG5207", "points": "0000", "recruits": 0 },
+{ "rank": 199, "name": "xxxxxxxx", "customerId": "GG5208", "points": "0000", "recruits": 0 },
+{ "rank": 200, "name": "xxxxxxxx", "customerId": "GG5209", "points": "0000", "recruits": 0 }
+];
+
+// =====================================================
+// TEAM MEMBERS DATA (for expand rows)
+// =====================================================
+        const teamMembersData = {
+            "GG5091": [
+                { name: "Arun Kumar", customerId: "GG6001", points: "120" },
+                { name: "Priya Sahu", customerId: "GG6002", points: "95" },
+                { name: "Ramesh Verma", customerId: "GG6003", points: "80" }
+            ],
+            "GG5098": [
+                { name: "Sunita Devi", customerId: "GG6004", points: "60" },
+                { name: "Mohan Lal", customerId: "GG6005", points: "55" }
+            ],
+            "GG5013": [
+                { name: "Kavita Yadav", customerId: "GG6006", points: "45" },
+                { name: "Dinesh Patel", customerId: "GG6007", points: "40" },
+                { name: "Suman Gupta", customerId: "GG6008", points: "35" }
+            ]
+        };
+
+function getTeamMembers(cid) {
+  return teamMembersData[cid] || [
+    { name: 'Member A', customerId: cid + '-T1', points: '0' },
+    { name: 'Member B', customerId: cid + '-T2', points: '0' }
+  ];
+}
+
+// =====================================================
+// ORBIT NETWORK  (sponsorId -> [directRecruitIds])
+// =====================================================
+var orbitNet = {
+  'GG5091': ['GG5098', 'GG5013', 'GG5097'],
+  'GG5098': ['GG5010', 'GG5025', 'GG5129'],
+  'GG5013': ['GG5093', 'GG5134', 'GG5016'],
+  'GG5097': ['GG5139', 'GG5146'],
+  'GG5010': ['GG5102', 'GG5094'],
+  'GG5025': ['GG5084', 'GG5081'],
+  'GG5129': ['GG5133', 'GG5089'],
+  'GG5093': ['GG5014', 'GG5054'],
+  'GG5134': ['GG5022', 'GG5118']
+};
+
+function getOrbit1(id) { return orbitNet[id] || []; }
+function getOrbit2(id) {
+  var r = [];
+  getOrbit1(id).forEach(function(mid) {
+    (orbitNet[mid] || []).forEach(function(kid) { r.push({ id: kid, via: mid }); });
+  });
+  return r;
+}
+
+// MLM points: direct +2, level2 +1, level3+ = 0
+function calcMLM(id) {
+  var fo = getOrbit1(id);
+  var dp = fo.length * 2;
+  var op = 0;
+  fo.forEach(function(mid) { op += (orbitNet[mid] || []).length; });
+  return { dp: dp, dr: fo.length, op: op, o2: 0, total: dp + op };
+}
+
+function parsePts(p) {
+  var n = parseInt(String(p).replace(/\D/g, ''), 10);
+  return isNaN(n) ? 0 : n;
+}
+
+// Build member lookup
+var memberMap = {};
+leaderboardData.forEach(function(m) { memberMap[m.customerId] = m; });
+
+// Sort by total points desc
+function getSorted() {
+  var d = leaderboardData.slice().sort(function(a, b) {
+    var ta = calcMLM(a.customerId).total + parsePts(a.points);
+    var tb = calcMLM(b.customerId).total + parsePts(b.points);
+    return tb - ta;
+  });
+  d.forEach(function(x, i) { x._rank = i + 1; });
+  return d;
+}
+
+var CROWNS = [
+  { e: '👑', bc: 'bgold',   mc: 'mgold',   lb: 'Batch 1' },
+  { e: '🥈', bc: 'bsilver', mc: 'msilver', lb: 'Batch 2' },
+  { e: '🥉', bc: 'bbronze', mc: 'mbronze', lb: 'Batch 3' }
+];
+
+function animCell(el, val) {
+  if (!val) { el.textContent = '0'; return; }
+  var step = Math.max(1, Math.ceil(val / 60)), cur = 0;
+  var t = setInterval(function() {
+    cur = Math.min(cur + step, val);
+    el.textContent = cur;
+    if (cur >= val) clearInterval(t);
+  }, 16);
+}
+
+var prevRanks = {}, openExpId = null;
+
+// =====================================================
+// BUILD LEADERBOARD
+// =====================================================
+function buildLB() {
+  var tbody = document.getElementById('lbBody');
+  if (!tbody) return;
+  var data = getSorted();
+  tbody.innerHTML = '';
+  openExpId = null;
+
+  data.forEach(function(item, idx) {
+    var rank = item._rank;
+    var top3 = rank <= 3;
+    var crown = top3 ? CROWNS[rank - 1] : null;
+    var m = calcMLM(item.customerId);
+    var base = parsePts(item.points);
+    var total = m.total + base;
+    var expId = 'exp_' + item.customerId;
+
+    var flash = '';
+    if (prevRanks[item.customerId] !== undefined) {
+      if (rank < prevRanks[item.customerId]) flash = 'flashup';
+      else if (rank > prevRanks[item.customerId]) flash = 'flashdn';
+    }
+    prevRanks[item.customerId] = rank;
+
+    var tr = document.createElement('tr');
+    var bg = rank === 1 ? 'rank1' : (idx % 2 === 0 ? '' : '');
+    tr.className = 'lbrow rowanim ' + (rank === 1 ? 'rank1' : (idx % 2 !== 0 ? 'bg-gray-50' : '')) + ' ' + flash;
+    if (rank !== 1 && idx % 2 === 0) tr.style.background = '#fff';
+    tr.style.animationDelay = (idx * 18) + 'ms';
+    tr.setAttribute('data-eid', expId);
+
+    var rankTd = top3
+      ? '<td class="px-3 py-3 whitespace-nowrap"><span class="medal ' + crown.mc + '">' + rank + '</span></td>'
+      : '<td class="px-3 py-3 whitespace-nowrap text-sm font-semibold text-gray-500">' + rank + '</td>';
+
+    var bHtml = top3 ? '<span class="badge ' + crown.bc + '">' + crown.e + ' ' + crown.lb + '</span>' : '';
+
+    tr.innerHTML = rankTd +
+      '<td class="px-3 py-3 whitespace-nowrap">' +
+        '<span class="nm-link" data-cid="' + item.customerId + '" style="cursor:pointer;color:#0A8754;font-weight:600;text-decoration:underline dotted;text-underline-offset:3px;font-size:.85rem">' + item.name + '</span>' +
+        bHtml + '<span class="chev">&#9660;</span>' +
+      '</td>' +
+      '<td class="px-3 py-3 whitespace-nowrap text-xs text-gray-500 font-mono">' + item.customerId + '</td>' +
+      '<td class="px-3 py-3 whitespace-nowrap ptscell text-sm" style="color:#2563EB" data-v="' + m.dp + '">0</td>' +
+      '<td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">' + m.dr + '</td>' +
+      '<td class="px-3 py-3 whitespace-nowrap ptscell text-sm" style="color:#0D9488" data-v="' + m.op + '">0</td>' +
+      '<td class="px-3 py-3 whitespace-nowrap ptscell text-sm" style="color:#7C3AED" data-v="' + m.o2 + '">0</td>' +
+      '<td class="px-3 py-3 whitespace-nowrap ptscell text-sm font-bold" style="color:#0A8754;background:#f0fdf4" data-v="' + total + '">0</td>';
+
+    // Expand row
+    var expTr = document.createElement('tr');
+    expTr.className = 'exprow';
+    expTr.id = expId;
+    var mems = getTeamMembers(item.customerId);
+    var mRows = mems.map(function(mm) {
+      return '<tr class="border-b border-purple-100"><td class="pl-6 py-2 text-sm text-gray-700">' + mm.name +
+        '</td><td class="pl-4 py-2 text-xs text-gray-500 font-mono">' + mm.customerId +
+        '</td><td class="pl-4 py-2 text-sm font-semibold text-purple-700">' + mm.points + ' pts</td></tr>';
+    }).join('');
+    expTr.innerHTML = '<td colspan="8" class="p-0"><div class="bg-purple-50 border-l-4 border-purple-400 px-4 py-3">' +
+      '<p class="text-xs font-semibold text-purple-600 uppercase tracking-wider mb-2">Team Members of ' + item.name + '</p>' +
+      '<table class="w-full"><thead><tr class="text-xs text-purple-500 uppercase">' +
+      '<th class="pl-6 pb-1 text-left">Member Name</th><th class="pl-4 pb-1 text-left">Customer ID</th><th class="pl-4 pb-1 text-left">Points</th>' +
+      '</tr></thead><tbody>' + mRows + '</tbody></table></div></td>';
+
+    // Accordion click (not on name link)
+    tr.addEventListener('click', function(e) {
+      if (e.target.classList.contains('nm-link')) return;
+      var isOpen = expTr.classList.contains('open');
+      if (openExpId && openExpId !== expId) {
+        var pe = document.getElementById(openExpId);
+        if (pe) pe.classList.remove('open');
+        var pr = document.querySelector('[data-eid="' + openExpId + '"]');
+        if (pr) pr.classList.remove('xopen');
+      }
+      if (isOpen) { expTr.classList.remove('open'); tr.classList.remove('xopen'); openExpId = null; }
+      else { expTr.classList.add('open'); tr.classList.add('xopen'); openExpId = expId; }
+    });
+
+    // Name click -> orbit modal
+    tr.querySelector('.nm-link').addEventListener('click', function(e) {
+      e.stopPropagation();
+      GB_openOrbit(this.getAttribute('data-cid'));
+    });
+
+    tbody.appendChild(tr);
+    tbody.appendChild(expTr);
+  });
+
+  // Animate pts cells
+  tbody.querySelectorAll('[data-v]').forEach(function(cell, i) {
+    var v = parseInt(cell.getAttribute('data-v'), 10) || 0;
+    setTimeout(function() { animCell(cell, v); }, i * 9);
+  });
+}
+
+// Search
+document.getElementById('lbSearch').addEventListener('input', function() {
+  var q = this.value.trim().toLowerCase();
+  document.querySelectorAll('#lbBody .lbrow').forEach(function(row) {
+    var nm = row.cells[1] ? row.cells[1].textContent.trim().toLowerCase() : '';
+    var ci = row.cells[2] ? row.cells[2].textContent.trim().toLowerCase() : '';
+    var eid = row.getAttribute('data-eid');
+    var er = eid ? document.getElementById(eid) : null;
+    if (!q) {
+      row.style.display = ''; if (er) er.style.display = '';
+      row.classList.remove('highlighted');
+    } else if (nm.includes(q) || ci.includes(q)) {
+      row.style.display = ''; if (er) er.style.display = '';
+      row.classList.add('highlighted');
+    } else {
+      row.style.display = 'none'; if (er) er.style.display = 'none';
+      row.classList.remove('highlighted');
+    }
+  });
+});
+
+// Build on load
+buildLB();
+
+// =====================================================
+// ORBIT MODAL LOGIC
+// =====================================================
+var GB_curId = null, GB_curTab = 1;
+
+function GB_openOrbit(cid) {
+  GB_curId = cid;
+  GB_curTab = 1;
+  var mem = memberMap[cid];
+  if (!mem) { alert('Member not found: ' + cid); return; }
+  document.getElementById('OM_NAME').textContent = mem.name + ' — Team Orbit';
+  document.getElementById('OM_CID').textContent = 'Customer ID: ' + mem.customerId;
+  var fo = getOrbit1(cid), so = getOrbit2(cid), m = calcMLM(cid);
+  document.getElementById('OS_D').textContent = fo.length;
+  document.getElementById('OS_2').textContent = so.length;
+  document.getElementById('OS_P').textContent = m.total + parsePts(mem.points);
+  document.getElementById('OT_1').classList.add('active');
+  document.getElementById('OT_2').classList.remove('active');
+  GB_renderTab(1);
+  document.getElementById('GB_ORBIT_MODAL').classList.add('gb-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function GB_closeOrbit() {
+  document.getElementById('GB_ORBIT_MODAL').classList.remove('gb-open');
+  document.body.style.overflow = 'auto';
+}
+
+function GB_switchTab(n) {
+  GB_curTab = n;
+  document.getElementById('OT_1').classList.toggle('active', n === 1);
+  document.getElementById('OT_2').classList.toggle('active', n === 2);
+  GB_renderTab(n);
+}
+
+function GB_initials(nm) {
+  return nm.trim().split(/\s+/).map(function(w) { return w[0] || ''; }).slice(0, 2).join('').toUpperCase();
+}
+
+function GB_renderTab(tab) {
+  var area = document.getElementById('OM_BODY');
+  area.innerHTML = '';
+  if (tab === 1) {
+    var fo = getOrbit1(GB_curId);
+    if (!fo.length) {
+      area.innerHTML = '<div class="orb-empty">No direct recruits yet in First Orbit.<br><small>When members are recruited, they appear here.</small></div>';
+      return;
+    }
+    var desc = document.createElement('p');
+    desc.className = 'orb-desc';
+    desc.innerHTML = '<strong>' + fo.length + '</strong> direct recruit' + (fo.length > 1 ? 's' : '') +
+      ' — each earns you <strong style="color:#0A8754">+2 points</strong>.';
+    area.appendChild(desc);
+    fo.forEach(function(id) {
+      var mm = memberMap[id], nm = mm ? mm.name : id, pts = mm ? parsePts(mm.points) : 0;
+      var c = document.createElement('div');
+      c.className = 'orb-card';
+      c.innerHTML = '<div class="orb-avi avi1">' + GB_initials(nm) + '</div>' +
+        '<div class="orb-info">' +
+          '<div class="orb-nm">' + nm + '</div>' +
+          '<div class="orb-id">' + id + '</div>' +
+          '<div class="orb-via">Direct recruit &middot; <strong style="color:#0A8754">+2 pts</strong> to you</div>' +
+        '</div>' +
+        '<div class="orb-pts">' + pts + ' pts</div>';
+      area.appendChild(c);
+    });
+  } else {
+    var so = getOrbit2(GB_curId);
+    if (!so.length) {
+      area.innerHTML = '<div class="orb-empty">No second orbit members yet.<br><small>Your direct recruits have not recruited anyone yet.</small></div>';
+      return;
+    }
+    var desc2 = document.createElement('p');
+    desc2.className = 'orb-desc';
+    desc2.innerHTML = '<strong>' + so.length + '</strong> second-orbit member' + (so.length > 1 ? 's' : '') +
+      ' — each earns you <strong style="color:#0A8754">+1 point</strong>.';
+    area.appendChild(desc2);
+    so.forEach(function(entry) {
+      var mm = memberMap[entry.id], vm = memberMap[entry.via];
+      var nm = mm ? mm.name : entry.id, vnm = vm ? vm.name : entry.via, pts = mm ? parsePts(mm.points) : 0;
+      var c = document.createElement('div');
+      c.className = 'orb-card';
+      c.innerHTML = '<div class="orb-avi avi2">' + GB_initials(nm) + '</div>' +
+        '<div class="orb-info">' +
+          '<div class="orb-nm">' + nm + '</div>' +
+          '<div class="orb-id">' + entry.id + '</div>' +
+          '<div class="orb-via">Via <strong>' + vnm + '</strong> &middot; <strong style="color:#0A8754">+1 pt</strong> to you</div>' +
+        '</div>' +
+        '<div class="orb-pts">' + pts + ' pts</div>';
+      area.appendChild(c);
+    });
+  }
+}
+
+// Close on backdrop
+document.getElementById('GB_ORBIT_MODAL').addEventListener('click', function(e) {
+  if (e.target === this) GB_closeOrbit();
+});
+
+// =====================================================
+// PRODUCTS MODAL
+// =====================================================
+document.getElementById('viewProductsBtn').addEventListener('click', function() {
+  document.getElementById('productsModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('closeModalBtn').addEventListener('click', function() {
+  document.getElementById('productsModal').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+});
+document.getElementById('productsModal').addEventListener('click', function(e) {
+  if (e.target === this) { this.classList.add('hidden'); document.body.style.overflow = 'auto'; }
+});
+
+// =====================================================
+// PRIVACY / TERMS DATES
+// =====================================================
+(function() {
+  var d = new Date();
+  var fmt = String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
+  var yr = d.getFullYear();
+  ['effectiveDate', 'updatedDate'].forEach(function(id) { var e = document.getElementById(id); if (e) e.textContent = fmt; });
+  ['year', 'termsYear'].forEach(function(id) { var e = document.getElementById(id); if (e) e.textContent = yr; });
+})();
+</script>
+</body>
+</html>
