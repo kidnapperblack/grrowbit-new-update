@@ -535,6 +535,215 @@ footer.main-footer a:hover{color:var(--gold-light)}
   background:linear-gradient(90deg,transparent,rgba(212,175,55,.4),transparent);
   margin:0;
 }
+
+/* ========================================================
+   NEW: POINTS MANAGER SECTION
+   ======================================================== */
+.pm-section {
+  background:var(--charcoal-mid);
+  padding:80px 0;
+  border-top:1px solid rgba(212,175,55,.1);
+}
+.pm-card {
+  background:var(--charcoal);
+  border:1px solid rgba(212,175,55,.2);
+  border-radius:20px;
+  padding:36px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 30px 60px rgba(0,0,0,.4);
+}
+.pm-card::before {
+  content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.pm-input-group {
+  display:flex;flex-direction:column;gap:6px;
+}
+.pm-label {
+  font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--text-muted);
+}
+.pm-input {
+  background:rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--text-primary);
+  padding:11px 16px;border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;
+  transition:border-color .2s;
+  width:100%;
+}
+.pm-input:focus{outline:none;border-color:rgba(212,175,55,.5);background:rgba(0,0,0,.5)}
+.pm-input::placeholder{color:var(--text-muted);font-size:.82rem}
+.pm-btn {
+  background:linear-gradient(135deg,var(--emerald),var(--emerald-light));
+  color:#fff;padding:13px 32px;border-radius:10px;
+  font-weight:700;font-size:.9rem;letter-spacing:.3px;
+  border:none;cursor:pointer;
+  box-shadow:0 4px 20px rgba(10,135,84,.4);
+  transition:all .25s;
+  display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;
+}
+.pm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(10,135,84,.6)}
+.pm-btn:active{transform:translateY(0)}
+.pm-toast {
+  position:fixed;bottom:28px;right:28px;z-index:99999;
+  padding:14px 22px;border-radius:12px;
+  font-size:.85rem;font-weight:600;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  transform:translateY(80px);opacity:0;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;
+}
+.pm-toast.show{transform:translateY(0);opacity:1}
+.pm-toast.success{background:linear-gradient(135deg,rgba(5,46,22,.95),rgba(6,78,59,.95));border:1px solid rgba(16,185,129,.4);color:#6ee7b7}
+.pm-toast.error{background:linear-gradient(135deg,rgba(69,10,10,.95),rgba(127,29,29,.95));border:1px solid rgba(239,68,68,.4);color:#fca5a5}
+
+/* ========================================================
+   NEW: TEAM TREE SECTION
+   ======================================================== */
+.tree-section {
+  background:var(--charcoal);
+  padding:80px 0;
+  border-top:1px solid rgba(212,175,55,.1);
+}
+.tree-container {
+  background:var(--charcoal-mid);
+  border:1px solid rgba(212,175,55,.2);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.5);
+}
+.tree-toolbar {
+  background:var(--charcoal-light);
+  border-bottom:1px solid rgba(212,175,55,.1);
+  padding:18px 24px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.tree-search {
+  background:rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--text-primary);
+  padding:9px 14px 9px 40px;
+  border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-size:.875rem;
+  width:260px;transition:border-color .2s;
+}
+.tree-search:focus{outline:none;border-color:rgba(212,175,55,.5)}
+.tree-search::placeholder{color:var(--text-muted)}
+.tree-add-btn {
+  background:linear-gradient(135deg,var(--emerald),var(--emerald-light));
+  color:#fff;padding:9px 20px;border-radius:10px;
+  font-weight:600;font-size:.82rem;border:none;cursor:pointer;
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;
+}
+.tree-add-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(10,135,84,.4)}
+.tree-body {
+  padding:28px 24px;overflow-y:auto;max-height:700px;
+  background:var(--charcoal);
+}
+.tree-body::-webkit-scrollbar{width:4px}
+.tree-body::-webkit-scrollbar-thumb{background:rgba(212,175,55,.3);border-radius:2px}
+
+/* Tree node styles */
+.tree-node-wrap{margin-bottom:6px}
+.tree-node {
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.03);
+  transition:all .2s;cursor:pointer;
+  position:relative;
+}
+.tree-node:hover{border-color:rgba(212,175,55,.25);background:rgba(212,175,55,.04)}
+.tree-node-connector {
+  position:absolute;left:0;top:0;bottom:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.tree-avi {
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.72rem;font-family:'Cinzel',serif;
+  background:linear-gradient(135deg,rgba(10,135,84,.3),rgba(16,185,129,.2));
+  color:var(--emerald-light);border:1px solid rgba(16,185,129,.3);
+}
+.tree-avi.depth-1{background:linear-gradient(135deg,rgba(37,99,235,.3),rgba(96,165,250,.2));color:#60A5FA;border-color:rgba(96,165,250,.3)}
+.tree-avi.depth-2{background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(167,139,250,.2));color:#A78BFA;border-color:rgba(167,139,250,.3)}
+.tree-info{flex:1;min-width:0}
+.tree-nm{font-weight:700;font-size:.87rem;color:var(--text-primary)}
+.tree-id{font-size:.7rem;color:var(--text-muted);font-family:monospace}
+.tree-pts-badge {
+  font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:16px;white-space:nowrap;
+  background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);color:var(--gold-light);
+}
+.tree-expand-btn {
+  background:transparent;border:none;cursor:pointer;
+  color:var(--text-muted);font-size:.65rem;padding:4px;
+  transition:transform .2s,color .2s;
+  display:flex;align-items:center;justify-content:center;
+  width:22px;height:22px;
+}
+.tree-expand-btn.open{transform:rotate(90deg);color:var(--gold-light)}
+.tree-children{
+  padding-left:28px;
+  border-left:1px solid rgba(255,255,255,.06);
+  margin-left:18px;
+  margin-top:4px;
+  display:none;
+}
+.tree-children.open{display:block}
+.tree-orbit-btns {
+  display:flex;gap:6px;margin-left:4px;
+}
+.tree-ob-btn {
+  font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:8px;
+  border:1px solid;cursor:pointer;background:transparent;transition:all .15s;
+}
+.tree-ob-btn.fo{color:var(--emerald-light);border-color:rgba(16,185,129,.3)}
+.tree-ob-btn.fo:hover{background:rgba(16,185,129,.15)}
+.tree-ob-btn.so{color:#A78BFA;border-color:rgba(167,139,250,.3)}
+.tree-ob-btn.so:hover{background:rgba(167,139,250,.15)}
+
+/* Add Member Modal (Tree) */
+#addMemberModal {
+  position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(10,12,20,.85);backdrop-filter:blur(12px);
+}
+#addMemberModal.open{display:flex}
+.am-panel {
+  background:var(--charcoal-mid);border:1px solid rgba(212,175,55,.25);
+  border-radius:20px;width:480px;max-width:96vw;
+  box-shadow:0 50px 100px rgba(0,0,0,.7);
+  position:relative;overflow:hidden;
+}
+.am-panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+@keyframes amIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+#addMemberModal.open .am-panel{animation:amIn .3s cubic-bezier(.34,1.56,.64,1) both}
+.am-hdr{padding:22px 24px 16px;border-bottom:1px solid rgba(212,175,55,.12)}
+.am-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.am-body{padding:24px}
+.am-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:var(--text-muted);border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.am-close:hover{background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.4);color:#f87171}
+.am-footer{padding:0 24px 24px;display:flex;gap:10px;justify-content:flex-end}
+.am-btn-cancel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--text-muted);padding:10px 22px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;transition:all .2s}
+.am-btn-cancel:hover{border-color:rgba(255,255,255,.2);color:var(--text-primary)}
+.am-btn-save{background:linear-gradient(135deg,var(--emerald),var(--emerald-light));color:#fff;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:700;border:none;box-shadow:0 4px 15px rgba(10,135,84,.35);transition:all .2s}
+.am-btn-save:hover{transform:translateY(-1px);box-shadow:0 8px 25px rgba(10,135,84,.5)}
+
+/* Generated ID badge in Add Member form */
+.gen-id-badge {
+  background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);
+  border-radius:8px;padding:10px 14px;
+  font-family:monospace;font-size:1rem;font-weight:700;
+  color:var(--gold-light);letter-spacing:2px;
+  text-align:center;
+}
 </style>
 </head>
 <body>
@@ -565,6 +774,41 @@ footer.main-footer a:hover{color:var(--gold-light)}
   </div>
 </div>
 
+<!-- ===== ADD MEMBER MODAL (NEW) ===== -->
+<div id="addMemberModal">
+  <div class="am-panel">
+    <div class="am-hdr">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="am-title">➕ Add New Member</div>
+        <button class="am-close" onclick="AM_close()">✕</button>
+      </div>
+      <div style="font-size:.75rem;color:var(--text-muted);margin-top:4px">Auto-generated Customer ID shown below</div>
+    </div>
+    <div class="am-body">
+      <div style="margin-bottom:18px">
+        <div class="pm-label" style="margin-bottom:8px">Generated Customer ID</div>
+        <div class="gen-id-badge" id="AM_GEN_ID">GG20100</div>
+      </div>
+      <div style="margin-bottom:14px" class="pm-input-group">
+        <label class="pm-label">Full Name *</label>
+        <input type="text" id="AM_NAME" class="pm-input" placeholder="e.g. RAHUL SHARMA">
+      </div>
+      <div style="margin-bottom:14px" class="pm-input-group">
+        <label class="pm-label">Sponsor (Upline) Customer ID</label>
+        <input type="text" id="AM_SPONSOR" class="pm-input" placeholder="e.g. GG5091 (leave blank for root)">
+        <div id="AM_SPONSOR_PREVIEW" style="font-size:.72rem;color:var(--emerald-light);margin-top:4px;height:16px"></div>
+      </div>
+    </div>
+    <div class="am-footer">
+      <button class="am-btn-cancel" onclick="AM_close()">Cancel</button>
+      <button class="am-btn-save" onclick="AM_save()">✓ Add Member</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="pm-toast" id="globalToast"></div>
+
 <!-- ===== NAVIGATION ===== -->
 <nav class="nav-glass sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -580,6 +824,8 @@ footer.main-footer a:hover{color:var(--gold-light)}
         <a href="#leaderboard" onclick="showPage('home')" class="nav-link">Leaderboard</a>
         <a href="#rewards" onclick="showPage('home')" class="nav-link">Rewards</a>
         <a href="#products" onclick="showPage('home')" class="nav-link">Products</a>
+        <a href="#points-manager" onclick="showPage('home')" class="nav-link" style="color:var(--emerald-light)">Pts Manager</a>
+        <a href="#team-tree" onclick="showPage('home')" class="nav-link" style="color:#A78BFA">Team Tree</a>
       </div>
       <button class="btn-primary">Login</button>
     </div>
@@ -710,6 +956,96 @@ footer.main-footer a:hover{color:var(--gold-light)}
 
   <div class="gold-divider"></div>
 
+  <!-- ========================================================
+       NEW: POINTS MANAGER SECTION
+       ======================================================== -->
+  <section id="points-manager" class="pm-section">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <div class="section-title">⚡ Points Manager</div>
+        <div class="section-sub">Manually update direct, first orbit & second orbit points for any member</div>
+      </div>
+      <div class="pm-card" data-aos="fade-up">
+        <!-- Lookup Row -->
+        <div style="margin-bottom:24px">
+          <div class="pm-label" style="margin-bottom:10px">1 · Lookup Member by Customer ID</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+            <div class="pm-input-group" style="flex:1;min-width:180px">
+              <label class="pm-label">Customer ID</label>
+              <input type="text" id="PM_CID" class="pm-input" placeholder="e.g. GG5091" oninput="PM_preview()">
+            </div>
+            <div id="PM_PREVIEW" style="flex:2;min-width:220px;padding:11px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.25);font-size:.82rem;color:var(--text-muted)">
+              Enter a Customer ID to preview member info
+            </div>
+          </div>
+        </div>
+
+        <!-- Points Row -->
+        <div style="margin-bottom:24px">
+          <div class="pm-label" style="margin-bottom:10px">2 · Set Point Values</div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-14px" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px">
+            <div class="pm-input-group">
+              <label class="pm-label" style="color:#60A5FA">Direct Points</label>
+              <input type="number" id="PM_DP" class="pm-input" placeholder="0" min="0" oninput="PM_calcPreview()">
+            </div>
+            <div class="pm-input-group">
+              <label class="pm-label" style="color:#34D399">First Orbit Points</label>
+              <input type="number" id="PM_FOP" class="pm-input" placeholder="0" min="0" oninput="PM_calcPreview()">
+            </div>
+            <div class="pm-input-group">
+              <label class="pm-label" style="color:#A78BFA">Second Orbit Points</label>
+              <input type="number" id="PM_SOP" class="pm-input" placeholder="0" min="0" oninput="PM_calcPreview()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Preview + Button -->
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)">
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <div style="font-size:.78rem;color:var(--text-muted)">Total Points Preview</div>
+            <div id="PM_TOTAL_PREVIEW" style="font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent">0</div>
+          </div>
+          <button class="pm-btn" onclick="PM_update()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Update Points
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ========================================================
+       NEW: TEAM TREE SECTION
+       ======================================================== -->
+  <section id="team-tree" class="tree-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <div class="section-title">🌳 Team Tree</div>
+        <div class="section-sub">Full hierarchical view of the network — click to expand, explore orbits</div>
+      </div>
+      <div class="tree-container" data-aos="fade-up">
+        <div class="tree-toolbar">
+          <div style="position:relative">
+            <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.4;pointer-events:none" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="treeSearch" class="tree-search" placeholder="Search member…" oninput="TT_filter(this.value)">
+          </div>
+          <button class="tree-add-btn" onclick="AM_open()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Member
+          </button>
+          <div style="margin-left:auto;font-size:.75rem;color:var(--text-muted)" id="treeMemberCount"></div>
+        </div>
+        <div class="tree-body" id="treeBody">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
   <!-- REWARDS -->
   <section id="rewards" class="rewards-section py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -785,12 +1121,12 @@ footer.main-footer a:hover{color:var(--gold-light)}
           </div>
           <div style="padding:24px 28px">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div class="product-card"><img src="image/Shampoo.png" alt="Shampoo" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Shampoo</div><div style="color:var(--text-muted);font-size:.82rem">Nourishing shampoo for smooth & shiny hairs.</div></div></div>
+              <div class="product-card"><img src="image/Shampoo.png" alt="Shampoo" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Shampoo</div><div style="color:var(--text-muted);font-size:.82rem">Nourishing shampoo for smooth &amp; shiny hairs.</div></div></div>
               <div class="product-card"><img src="image/Sunscreen.png" alt="Sunscreen" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Sunscreen</div><div style="color:var(--text-muted);font-size:.82rem">HydraShield broad spectrum sunscreen.</div></div></div>
               <div class="product-card"><img src="image/BodyLotion.png" alt="BodyLotion" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Body Lotion</div><div style="color:var(--text-muted);font-size:.82rem">Deep action body lotion for silky skin.</div></div></div>
-              <div class="product-card"><img src="image/BodyWash.png" alt="BodyWash" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Body Wash</div><div style="color:var(--text-muted);font-size:.82rem">Body wash for soft & glowing skin.</div></div></div>
-              <div class="product-card"><img src="image/FaceSerum.png" alt="FaceSerum" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Face Serum</div><div style="color:var(--text-muted);font-size:.82rem">Moisturizing & fairness serum.</div></div></div>
-              <div class="product-card"><img src="image/FaceWash.png" alt="FaceWash" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Face Wash</div><div style="color:var(--text-muted);font-size:.82rem">Face wash for bright & clear skin.</div></div></div>
+              <div class="product-card"><img src="image/BodyWash.png" alt="BodyWash" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Body Wash</div><div style="color:var(--text-muted);font-size:.82rem">Body wash for soft &amp; glowing skin.</div></div></div>
+              <div class="product-card"><img src="image/FaceSerum.png" alt="FaceSerum" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Face Serum</div><div style="color:var(--text-muted);font-size:.82rem">Moisturizing &amp; fairness serum.</div></div></div>
+              <div class="product-card"><img src="image/FaceWash.png" alt="FaceWash" style="width:100%;height:160px;object-fit:cover"><div style="padding:16px"><div style="color:var(--text-primary);font-weight:700;margin-bottom:6px">Growbit Face Wash</div><div style="color:var(--text-muted);font-size:.82rem">Face wash for bright &amp; clear skin.</div></div></div>
             </div>
           </div>
         </div>
@@ -812,20 +1148,11 @@ footer.main-footer a:hover{color:var(--gold-light)}
     </div>
     <div class="privacy-card">
       <p class="small" style="font-size:.85rem;color:var(--text-muted);background:rgba(212,175,55,.05);border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:20px">GROWBIT PRIVATE LIMITED values your privacy. This Privacy Policy explains what information we collect, why we collect it, how we use it, and your choices.</p>
-      <nav style="margin-bottom:20px"><div style="display:flex;flex-wrap:wrap;gap:8px">
-        <a href="#what" style="font-size:.78rem;color:var(--emerald-light);text-decoration:none;padding:5px 10px;border-radius:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15)">What we collect</a>
-        <a href="#use" style="font-size:.78rem;color:var(--emerald-light);text-decoration:none;padding:5px 10px;border-radius:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15)">How we use</a>
-        <a href="#share" style="font-size:.78rem;color:var(--emerald-light);text-decoration:none;padding:5px 10px;border-radius:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15)">Sharing</a>
-        <a href="#security" style="font-size:.78rem;color:var(--emerald-light);text-decoration:none;padding:5px 10px;border-radius:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15)">Security</a>
-        <a href="#rights" style="font-size:.78rem;color:var(--emerald-light);text-decoration:none;padding:5px 10px;border-radius:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15)">Your rights</a>
-        <a href="#contact-priv" style="font-size:.78rem;color:var(--emerald-light);text-decoration:none;padding:5px 10px;border-radius:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15)">Contact</a>
-      </div></nav>
       <h2 id="what">1. Information We Collect</h2>
       <p>We collect information you provide directly and information collected automatically when you use our services.</p>
-      <ul><li><strong>Account &amp; contact data:</strong> full name, email, phone number, address.</li><li><strong>Authentication:</strong> password hash (we never store plain passwords), OTP verification tokens.</li><li><strong>Referral data:</strong> referral codes, sponsor ID, referral history.</li><li><strong>Payment &amp; transaction data:</strong> transaction records, receipts.</li><li><strong>Bank details:</strong> account holder, account number, IFSC, UPI — encrypted, used only for payouts.</li><li><strong>Activity &amp; usage:</strong> IP address, device info, pages visited, actions taken, logs.</li></ul>
+      <ul><li><strong>Account &amp; contact data:</strong> full name, email, phone number, address.</li><li><strong>Authentication:</strong> password hash, OTP verification tokens.</li><li><strong>Referral data:</strong> referral codes, sponsor ID, referral history.</li><li><strong>Payment &amp; transaction data:</strong> transaction records, receipts.</li><li><strong>Bank details:</strong> account holder, account number, IFSC, UPI — encrypted.</li><li><strong>Activity &amp; usage:</strong> IP address, device info, pages visited, logs.</li></ul>
       <h2 id="use">2. How We Use Your Information</h2>
-      <p>We use your data to deliver the service, run the business, comply with legal requirements and to improve the platform:</p>
-      <ul><li>Create and manage user accounts and profiles.</li><li>Process sign-up payments and split amounts according to pool/commission rules.</li><li>Track referrals, calculate commissions and points, and update leaderboards.</li><li>Process payouts to your bank account when eligible.</li><li>Send important communications: account alerts, OTPs, payment confirmations.</li><li>Detect and prevent fraud, abuse or illegal activity.</li></ul>
+      <ul><li>Create and manage user accounts and profiles.</li><li>Process sign-up payments and split amounts according to pool/commission rules.</li><li>Track referrals, calculate commissions and points, and update leaderboards.</li><li>Process payouts to your bank account when eligible.</li><li>Send important communications: account alerts, OTPs, payment confirmations.</li></ul>
       <h2 id="share">3. When We Share Information</h2>
       <p>We never sell your personal information. We may share data with trusted third parties needed to operate the service, payment processors, or legal authorities when required by law.</p>
       <h2 id="security">4. Data Security &amp; Storage</h2>
@@ -834,7 +1161,6 @@ footer.main-footer a:hover{color:var(--gold-light)}
       <p>You have rights regarding your personal data: Access, Correction, Deletion, and Opt-out of promotional communications.</p>
       <h2 id="contact-priv">6. Contact Us</h2>
       <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px">
-        <div><strong>Email:</strong> <a href="mailto:support@growbit.com">support@growbit.com</a></div>
         <div><strong>Phone:</strong> +91-8318873808</div>
         <div><strong>Address:</strong> <span style="color:var(--text-muted);font-size:.82rem">1 Floor 110 Office Durg, Koliyapuri Rishabh Trade, Durg-491001, CG, India</span></div>
       </div>
@@ -860,7 +1186,7 @@ footer.main-footer a:hover{color:var(--gold-light)}
     <h2>6. Compliance with Law</h2><p>All members must comply with local laws and regulations. Any unlawful activity will lead to account termination and legal action if necessary.</p>
     <h2>7. Changes to Terms</h2><p>GREEN GROW ORBIT MARKET reserves the right to modify or update these Terms &amp; Conditions at any time. Updates will be effective once published on the website.</p>
     <h2>8. Contact Information</h2>
-    <p>Email: support@growbit.com<br>Phone: +91-8318873808<br>Address: India, Chhattisgarh, Durg</p>
+    <p>Phone: +91-8318873808<br>Address: India, Chhattisgarh, Durg</p>
   </div>
   <div class="terms-footer">© <span id="termsYear"></span> GREEN GROW ORBIT MARKET. All Rights Reserved.</div>
 </div>
@@ -875,11 +1201,13 @@ footer.main-footer a:hover{color:var(--gold-light)}
       </div>
       <div>
         <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px">Quick Links</div>
-        <ul style="list-style:none;space-y:8px">
+        <ul style="list-style:none">
           <li style="margin-bottom:8px"><a href="#" onclick="showPage('home')">Home</a></li>
           <li style="margin-bottom:8px"><a href="#global-pool" onclick="showPage('home')">Global Pool</a></li>
           <li style="margin-bottom:8px"><a href="#leaderboard" onclick="showPage('home')">Leaderboard</a></li>
           <li style="margin-bottom:8px"><a href="#rewards" onclick="showPage('home')">Rewards</a></li>
+          <li style="margin-bottom:8px"><a href="#points-manager" onclick="showPage('home')">Points Manager</a></li>
+          <li style="margin-bottom:8px"><a href="#team-tree" onclick="showPage('home')">Team Tree</a></li>
         </ul>
       </div>
       <div>
@@ -892,7 +1220,6 @@ footer.main-footer a:hover{color:var(--gold-light)}
       <div>
         <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px">Contact Us</div>
         <ul style="list-style:none">
-          <li style="margin-bottom:10px;font-size:.84rem">📧 support@growbit.com</li>
           <li style="margin-bottom:10px;font-size:.84rem">📞 8318873808</li>
           <li style="font-size:.84rem;line-height:1.6">📍 1 Floor 110 Office Durg, Koliyapuri Rishabh Trade, Durg-491001, CG, India</li>
         </ul>
@@ -932,9 +1259,9 @@ function animCounter(id, target, dur) {
   }, 16);
 }
 setTimeout(() => {
-  animCounter('globalPoolCounter', 350005060);
-  animCounter('totalPointsCounter', 100000);
-  animCounter('teamSupportCounter', 50000);
+  animCounter('globalPoolCounter', 2500);
+  animCounter('totalPointsCounter', 10);
+  animCounter('teamSupportCounter', 340);
 }, 500);
 
 // =====================================================
@@ -944,7 +1271,7 @@ setTimeout(() => {
   var canvas = document.getElementById('progressChart');
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
-  var TARGET = 2000, CURRENT = 1950;
+  var TARGET = 2000, CURRENT = 1;
   var pct = (CURRENT / TARGET) * 100;
   new Chart(ctx, {
     type: 'doughnut',
@@ -970,208 +1297,314 @@ setTimeout(() => {
 })();
 
 // =====================================================
+// MODULE 1: AUTO CUSTOMER ID GENERATOR
+// Generates unique IDs in format GG20100, GG20101...
+// Never duplicates; auto-increments from existing data.
+// =====================================================
+var ID_GEN = (function() {
+  var PREFIX = 'GG';
+  var START = 20100;
+  var _used = new Set();
+
+  function _init(existingIds) {
+    // Seed used IDs from existing data
+    existingIds.forEach(function(id) {
+      _used.add(id);
+      // Track highest numeric suffix
+      var num = parseInt(String(id).replace(/^GG/, ''), 10);
+      if (!isNaN(num) && num >= START) START = num + 1;
+    });
+  }
+
+  function next() {
+    // Find next available ID; skip any already in use
+    while (_used.has(PREFIX + START)) START++;
+    var newId = PREFIX + START;
+    _used.add(newId);
+    START++;
+    return newId;
+  }
+
+  function peek() {
+    // Preview next ID without consuming it
+    var s = START;
+    while (_used.has(PREFIX + s)) s++;
+    return PREFIX + s;
+  }
+
+  function markUsed(id) {
+    _used.add(id);
+    var num = parseInt(String(id).replace(/^GG/, ''), 10);
+    if (!isNaN(num) && num >= START) START = num + 1;
+  }
+
+  return { init: _init, next: next, peek: peek, markUsed: markUsed };
+})();
+
+// =====================================================
 // LEADERBOARD DATA
+// Extended schema: directPoints, firstOrbitPoints,
+// secondOrbitPoints, totalPoints are calculated fields.
 // =====================================================
 var leaderboardData = [
-  { "rank": 1, "name": "BHAIYA LAL VERMA", "customerId": "GG5091", "points": "1000", "recruits": 100 },
-  { "rank": 2, "name": "DHAL SINGH VERMA", "customerId": "GG5098", "points": "0000", "recruits": 0 },
-  { "rank": 3, "name": "Ashwant", "customerId": "GG5013", "points": "50", "recruits": 5 },
-  { "rank": 4, "name": "SUNITA NIRMALKAR", "customerId": "GG5097", "points": "0000", "recruits": 0 },
-  { "rank": 5, "name": "Abdhesh Kushawaha", "customerId": "GG5010", "points": "0000", "recruits": 0 },
-  { "rank": 6, "name": "MD PARVEZ", "customerId": "GG5025", "points": "0000", "recruits": 0 },
-  { "rank": 7, "name": "TAHAL SINGH NIRMALKAR", "customerId": "GG5129", "points": "0000", "recruits": 0 },
-  { "rank": 8, "name": "DAMINI SAHU", "customerId": "GG5093", "points": "0000", "recruits": 0 },
-  { "rank": 9, "name": "ROHIT KUMAR JANGHEL", "customerId": "GG5134", "points": "0000", "recruits": 0 },
-  { "rank": 10, "name": "BALARAM SAHU", "customerId": "GG5098", "points": "0000", "recruits": 0 },
-  { "rank": 11, "name": "Gulshan kumar sahu", "customerId": "GG5016", "points": "100", "recruits": 10 },
-  { "rank": 12, "name": "BHOLARAM SAHU", "customerId": "GG5139", "points": "0000", "recruits": 0 },
-  { "rank": 13, "name": "LEKH RAM SAHU", "customerId": "GG5146", "points": "0000", "recruits": 0 },
-  { "rank": 14, "name": "SUSHMA YADAV", "customerId": "GG5102", "points": "0000", "recruits": 0 },
-  { "rank": 15, "name": "TIKESHWARI KHARE", "customerId": "GG5094", "points": "0000", "recruits": 0 },
-  { "rank": 16, "name": "DUKHHARAN NISHAD", "customerId": "GG5084", "points": "0000", "recruits": 0 },
-  { "rank": 17, "name": "NEHA VERMA", "customerId": "GG5081", "points": "0000", "recruits": 0 },
-  { "rank": 18, "name": "UTTARA BAI THANAVAR SAHU", "customerId": "GG5133", "points": "0000", "recruits": 0 },
-  { "rank": 19, "name": "VIJAY KUMAR SAHU", "customerId": "GG5089", "points": "0000", "recruits": 0 },
-  { "rank": 20, "name": "Lalchand Sahu", "customerId": "GG5014", "points": "0000", "recruits": 0 },
-  { "rank": 21, "name": "BHARAT NISHAD", "customerId": "GG5054", "points": "0000", "recruits": 0 },
-  { "rank": 22, "name": "Duleshwar kumar rajak", "customerId": "GG5022", "points": "0000", "recruits": 0 },
-  { "rank": 23, "name": "VINEETA PAL", "customerId": "GG5118", "points": "0000", "recruits": 0 },
-  { "rank": 24, "name": "Padum lal sahu", "customerId": "GG5029", "points": "0000", "recruits": 0 },
-  { "rank": 25, "name": "Sonbati", "customerId": "GG5018", "points": "0000", "recruits": 0 },
-  { "rank": 26, "name": "KANTI THAKUR", "customerId": "GG5058", "points": "0000", "recruits": 0 },
-  { "rank": 27, "name": "Bina Dewangan", "customerId": "GG5017", "points": "0000", "recruits": 0 },
-  { "rank": 28, "name": "Rizwan Khan", "customerId": "GG5015", "points": "0000", "recruits": 0 },
-  { "rank": 29, "name": "Komin Sahu", "customerId": "GG5032", "points": "0000", "recruits": 0 },
-  { "rank": 30, "name": "TRASIT DEWANGAN", "customerId": "GG5043", "points": "0000", "recruits": 0 },
-  { "rank": 31, "name": "Jageshwari Sahu", "customerId": "GG5011", "points": "0000", "recruits": 0 },
-  { "rank": 32, "name": "KALYANI NISHAD", "customerId": "GG5042", "points": "0000", "recruits": 0 },
-  { "rank": 33, "name": "UTTAM Sapha", "customerId": "GG5039", "points": "0000", "recruits": 0 },
-  { "rank": 34, "name": "Upendra Deshmukh", "customerId": "GG5031", "points": "0000", "recruits": 0 },
-  { "rank": 35, "name": "PRAVIN KUMAR PAUSARYA", "customerId": "GG5060", "points": "0000", "recruits": 0 },
-  { "rank": 36, "name": "DEEPAK DEWANGAN", "customerId": "GG5053", "points": "0000", "recruits": 0 },
-  { "rank": 37, "name": "LAXMI THAKUR", "customerId": "GG5059", "points": "0000", "recruits": 0 },
-  { "rank": 38, "name": "kusumlatha", "customerId": "GG5027", "points": "0000", "recruits": 0 },
-  { "rank": 39, "name": "Chandrakala", "customerId": "GG5024", "points": "0000", "recruits": 0 },
-  { "rank": 40, "name": "PRADIP KUMAR", "customerId": "GG5046", "points": "0000", "recruits": 0 },
-  { "rank": 41, "name": "OKESH DHANKAR", "customerId": "GG5077", "points": "0000", "recruits": 0 },
-  { "rank": 42, "name": "Dhamin Sahu", "customerId": "GG5034", "points": "0000", "recruits": 0 },
-  { "rank": 43, "name": "BED BAI YADAV", "customerId": "GG5037", "points": "0000", "recruits": 0 },
-  { "rank": 44, "name": "MANOJ KUMAR", "customerId": "GG5036", "points": "0000", "recruits": 0 },
-  { "rank": 45, "name": "Abdul Aziz Mondal", "customerId": "GG5012", "points": "0000", "recruits": 0 },
-  { "rank": 46, "name": "prema", "customerId": "GG5019", "points": "0000", "recruits": 0 },
-  { "rank": 47, "name": "KEJA BAI", "customerId": "GG5020", "points": "0000", "recruits": 0 },
-  { "rank": 48, "name": "Chitrekha sahu", "customerId": "GG5021", "points": "0000", "recruits": 0 },
-  { "rank": 49, "name": "Girja bai", "customerId": "GG5023", "points": "0000", "recruits": 0 },
-  { "rank": 50, "name": "Haridash khuswaha", "customerId": "GG5026", "points": "0000", "recruits": 0 },
-  { "rank": 51, "name": "SUMAN KUSHWAHA", "customerId": "GG5035", "points": "0000", "recruits": 0 },
-  { "rank": 52, "name": "UDASA BAI DEWANGAN", "customerId": "GG5038", "points": "0000", "recruits": 0 },
-  { "rank": 53, "name": "Gaindi Sapha", "customerId": "GG5033", "points": "0000", "recruits": 0 },
-  { "rank": 54, "name": "RUPA SAHU", "customerId": "GG5128", "points": "0000", "recruits": 0 },
-  { "rank": 55, "name": "DULARI BAI DESHMUKH", "customerId": "GG5040", "points": "0000", "recruits": 0 },
-  { "rank": 56, "name": "ANUSUIYA BAI", "customerId": "GG5041", "points": "0000", "recruits": 0 },
-  { "rank": 57, "name": "SARASVATI SONI", "customerId": "GG5044", "points": "0000", "recruits": 0 },
-  { "rank": 58, "name": "RAJNI BAI", "customerId": "GG5045", "points": "0000", "recruits": 0 },
-  { "rank": 59, "name": "TIKESHWAR CHANDRAKAR", "customerId": "GG5047", "points": "0000", "recruits": 0 },
-  { "rank": 60, "name": "SANTOSHI", "customerId": "GG5048", "points": "0000", "recruits": 0 },
-  { "rank": 61, "name": "PUNAM NISHAD", "customerId": "GG5049", "points": "0000", "recruits": 0 },
-  { "rank": 62, "name": "RITU SAHU", "customerId": "GG5050", "points": "0000", "recruits": 0 },
-  { "rank": 63, "name": "BHOJ RAM SAHU", "customerId": "GG5051", "points": "0000", "recruits": 0 },
-  { "rank": 64, "name": "RAVINDRA KUMAR", "customerId": "GG5052", "points": "0000", "recruits": 0 },
-  { "rank": 65, "name": "KIRAN THAKUR", "customerId": "GG5055", "points": "0000", "recruits": 0 },
-  { "rank": 66, "name": "SHARDA SAHU", "customerId": "GG5056", "points": "0000", "recruits": 0 },
-  { "rank": 67, "name": "LALESHWARI SAHU", "customerId": "GG5129", "points": "0000", "recruits": 0 },
-  { "rank": 68, "name": "POOJA DEWANGAN", "customerId": "GG5057", "points": "0000", "recruits": 0 },
-  { "rank": 69, "name": "RENUKA", "customerId": "GG5061", "points": "0000", "recruits": 0 },
-  { "rank": 70, "name": "MAJUM", "customerId": "GG5062", "points": "0000", "recruits": 0 },
-  { "rank": 71, "name": "RAJKUMARI TANDAN", "customerId": "GG5063", "points": "0000", "recruits": 0 },
-  { "rank": 72, "name": "MOHIT KUSHWAH", "customerId": "GG5064", "points": "0000", "recruits": 0 },
-  { "rank": 73, "name": "MOTIN BAI", "customerId": "GG5065", "points": "0000", "recruits": 0 },
-  { "rank": 74, "name": "LEELA THAKUR", "customerId": "GG5066", "points": "0000", "recruits": 0 },
-  { "rank": 75, "name": "JAGRITI SAHU", "customerId": "GG5067", "points": "0000", "recruits": 0 },
-  { "rank": 76, "name": "DHANESHWAR", "customerId": "GG5068", "points": "0000", "recruits": 0 },
-  { "rank": 77, "name": "KHEMAN THAKUR", "customerId": "GG5069", "points": "0000", "recruits": 0 },
-  { "rank": 78, "name": "AHILYA DESHMUKH", "customerId": "GG5070", "points": "0000", "recruits": 0 },
-  { "rank": 79, "name": "MINA THAKUR", "customerId": "GG5071", "points": "0000", "recruits": 0 },
-  { "rank": 80, "name": "FULESHWARI YADAV", "customerId": "GG5072", "points": "0000", "recruits": 0 },
-  { "rank": 81, "name": "MANOJ YADAV", "customerId": "GG5073", "points": "0000", "recruits": 0 },
-  { "rank": 82, "name": "ANITA DEWANGAN", "customerId": "GG5074", "points": "0000", "recruits": 0 },
-  { "rank": 83, "name": "SHARDA BAI DHOBI", "customerId": "GG5075", "points": "0000", "recruits": 0 },
-  { "rank": 84, "name": "KUMARI BAI DHIWAR", "customerId": "GG5076", "points": "0000", "recruits": 0 },
-  { "rank": 85, "name": "UPREKHA THAKUR", "customerId": "GG5078", "points": "0000", "recruits": 0 },
-  { "rank": 86, "name": "SURJA BAI SAHU", "customerId": "GG5079", "points": "0000", "recruits": 0 },
-  { "rank": 87, "name": "KIRAN SAHU", "customerId": "GG5080", "points": "0000", "recruits": 0 },
-  { "rank": 88, "name": "CHHAYA SAHU", "customerId": "GG5082", "points": "0000", "recruits": 0 },
-  { "rank": 89, "name": "DEVKI YADAV", "customerId": "GG5083", "points": "0000", "recruits": 0 },
-  { "rank": 90, "name": "ASHWANI SAHU", "customerId": "GG5085", "points": "0000", "recruits": 0 },
-  { "rank": 91, "name": "HEMANT YADAV", "customerId": "GG5086", "points": "0000", "recruits": 0 },
-  { "rank": 92, "name": "GOVIND PAL", "customerId": "GG5088", "points": "0000", "recruits": 0 },
-  { "rank": 93, "name": "GAYATRI SAHU", "customerId": "GG5090", "points": "0000", "recruits": 0 },
-  { "rank": 94, "name": "JAIN KUMAR SAHU", "customerId": "GG5092", "points": "0000", "recruits": 0 },
-  { "rank": 95, "name": "RAMESH KUMAR SAHU", "customerId": "GG5103", "points": "0000", "recruits": 0 },
-  { "rank": 96, "name": "TEENA DEWANGAN", "customerId": "GG5105", "points": "0000", "recruits": 0 },
-  { "rank": 97, "name": "SUSHIL SAHU", "customerId": "GG5099", "points": "0000", "recruits": 0 },
-  { "rank": 98, "name": "BINDIYA NISAD", "customerId": "GG5110", "points": "0000", "recruits": 0 },
-  { "rank": 99, "name": "AJAY PATEL", "customerId": "GG5111", "points": "0000", "recruits": 0 },
-  { "rank": 100, "name": "RANJITA WADKAR", "customerId": "GG5096", "points": "0000", "recruits": 0 },
-  { "rank": 101, "name": "DHANESHVARI VARMA", "customerId": "GG5104", "points": "0000", "recruits": 0 },
-  { "rank": 102, "name": "ASLAM", "customerId": "GG5112", "points": "0000", "recruits": 0 },
-  { "rank": 103, "name": "HIMANSHU PATEL", "customerId": "GG5113", "points": "0000", "recruits": 0 },
-  { "rank": 104, "name": "ARJUN SAROJ", "customerId": "GG5114", "points": "0000", "recruits": 0 },
-  { "rank": 105, "name": "SANTOSH KUMAR NAGWANSHI", "customerId": "GG5115", "points": "0000", "recruits": 0 },
-  { "rank": 106, "name": "NEESHU DHANGAR", "customerId": "GG5119", "points": "0000", "recruits": 0 },
-  { "rank": 107, "name": "YAMAN KUMAR SAHU", "customerId": "GG5120", "points": "0000", "recruits": 0 },
-  { "rank": 108, "name": "AFROZ", "customerId": "GG5117", "points": "0000", "recruits": 0 },
-  { "rank": 109, "name": "SARSWATI BAI BAGHEL", "customerId": "GG5121", "points": "0000", "recruits": 0 },
-  { "rank": 110, "name": "PAVANREKHA BHUARYA", "customerId": "GG5122", "points": "0000", "recruits": 0 },
-  { "rank": 111, "name": "SHISHUPAL", "customerId": "GG5087", "points": "0000", "recruits": 0 },
-  { "rank": 112, "name": "KHILAVAN KUMAR VERMA", "customerId": "GG5132", "points": "0000", "recruits": 0 },
-  { "rank": 113, "name": "SHUBHAM AMBADE", "customerId": "GG5127", "points": "0000", "recruits": 0 },
-  { "rank": 114, "name": "RAJESH PANDIT", "customerId": "GG5131", "points": "0000", "recruits": 0 },
-  { "rank": 115, "name": "SUNIL PAL", "customerId": "GG5127", "points": "0000", "recruits": 0 },
-  { "rank": 116, "name": "INDRA KUMAR SAHU", "customerId": "GG5128", "points": "0000", "recruits": 0 },
-  { "rank": 117, "name": "TULA RAM YADAV", "customerId": "GG5135", "points": "0000", "recruits": 0 },
-  { "rank": 118, "name": "NURJAHAN BANU", "customerId": "GG5136", "points": "0000", "recruits": 0 },
-  { "rank": 119, "name": "AKANKSHA MASIH", "customerId": "GG5137", "points": "0000", "recruits": 0 },
-  { "rank": 120, "name": "MANJU YADAV", "customerId": "GG5138", "points": "0000", "recruits": 0 },
-  { "rank": 121, "name": "DURGESH KUMAR", "customerId": "GG5095", "points": "0000", "recruits": 0 },
-  { "rank": 122, "name": "MANSINGH SAHU", "customerId": "GG5140", "points": "0000", "recruits": 0 },
-  { "rank": 123, "name": "LAXMI", "customerId": "GG5095", "points": "0000", "recruits": 0 },
-  { "rank": 124, "name": "AJAY TIWARI", "customerId": "GG5141", "points": "0000", "recruits": 0 },
-  { "rank": 125, "name": "ROHIT KUMAR PATEL", "customerId": "GG5100", "points": "0000", "recruits": 0 },
-  { "rank": 126, "name": "FAHIMUR RAHMAN", "customerId": "GG5108", "points": "0000", "recruits": 0 },
-  { "rank": 127, "name": "KHELENDRA KUMAR VERMA", "customerId": "GG5142", "points": "0000", "recruits": 0 },
-  { "rank": 128, "name": "HASEENA BEGAM ANSARI", "customerId": "GG5143", "points": "0000", "recruits": 0 },
-  { "rank": 129, "name": "NAFISHA BEE", "customerId": "GG5144", "points": "0000", "recruits": 0 },
-  { "rank": 130, "name": "BHAVESH KUMAR", "customerId": "GG5145", "points": "0000", "recruits": 0 },
-  { "rank": 131, "name": "RUKHMANI", "customerId": "GG5147", "points": "0000", "recruits": 0 },
-  { "rank": 132, "name": "RAKESH KUMAR", "customerId": "GG5148", "points": "0000", "recruits": 0 }
+  { "rank": 1, "name": "BHAIYA LAL VERMA", "customerId": "GG5091", "points": "10", "recruits": 1, "directPoints": 0, "firstOrbitPoints": 2, "secondOrbitPoints": 1 },
+  { "rank": 2, "name": "DHAL SINGH VERMA", "customerId": "GG5098", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 3, "name": "Ashwant", "customerId": "GG5013", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 4, "name": "SUNITA NIRMALKAR", "customerId": "GG5097", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 5, "name": "Abdhesh Kushawaha", "customerId": "GG5010", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 6, "name": "MD PARVEZ", "customerId": "GG5025", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 7, "name": "TAHAL SINGH NIRMALKAR", "customerId": "GG5129", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 8, "name": "DAMINI SAHU", "customerId": "GG5093", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 9, "name": "ROHIT KUMAR JANGHEL", "customerId": "GG5134", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 10, "name": "BALARAM SAHU", "customerId": "GG5098", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 11, "name": "Gulshan kumar sahu", "customerId": "GG5016", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 12, "name": "BHOLARAM SAHU", "customerId": "GG5139", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 13, "name": "LEKH RAM SAHU", "customerId": "GG5146", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 14, "name": "SUSHMA YADAV", "customerId": "GG5102", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 15, "name": "TIKESHWARI KHARE", "customerId": "GG5094", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 16, "name": "DUKHHARAN NISHAD", "customerId": "GG5084", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 17, "name": "NEHA VERMA", "customerId": "GG5081", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 18, "name": "UTTARA BAI THANAVAR SAHU", "customerId": "GG5133", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 19, "name": "VIJAY KUMAR SAHU", "customerId": "GG5089", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 20, "name": "Lalchand Sahu", "customerId": "GG5014", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 21, "name": "BHARAT NISHAD", "customerId": "GG5054", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 22, "name": "Duleshwar kumar rajak", "customerId": "GG5022", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 23, "name": "VINEETA PAL", "customerId": "GG5118", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 24, "name": "Padum lal sahu", "customerId": "GG5029", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 25, "name": "Sonbati", "customerId": "GG5018", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 26, "name": "KANTI THAKUR", "customerId": "GG5058", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 27, "name": "Bina Dewangan", "customerId": "GG5017", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 28, "name": "Rizwan Khan", "customerId": "GG5015", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 29, "name": "Komin Sahu", "customerId": "GG5032", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 30, "name": "TRASIT DEWANGAN", "customerId": "GG5043", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 31, "name": "Jageshwari Sahu", "customerId": "GG5011", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 32, "name": "KALYANI NISHAD", "customerId": "GG5042", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 33, "name": "UTTAM Sapha", "customerId": "GG5039", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 34, "name": "Upendra Deshmukh", "customerId": "GG5031", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 35, "name": "PRAVIN KUMAR PAUSARYA", "customerId": "GG5060", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 36, "name": "DEEPAK DEWANGAN", "customerId": "GG5053", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 37, "name": "LAXMI THAKUR", "customerId": "GG5059", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 38, "name": "kusumlatha", "customerId": "GG5027", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 39, "name": "Chandrakala", "customerId": "GG5024", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 40, "name": "PRADIP KUMAR", "customerId": "GG5046", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 41, "name": "OKESH DHANKAR", "customerId": "GG5077", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 42, "name": "Dhamin Sahu", "customerId": "GG5034", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 43, "name": "BED BAI YADAV", "customerId": "GG5037", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 44, "name": "MANOJ KUMAR", "customerId": "GG5036", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 45, "name": "Abdul Aziz Mondal", "customerId": "GG5012", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 46, "name": "prema", "customerId": "GG5019", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 47, "name": "KEJA BAI", "customerId": "GG5020", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 48, "name": "Chitrekha sahu", "customerId": "GG5021", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 49, "name": "Girja bai", "customerId": "GG5023", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 50, "name": "Haridash khuswaha", "customerId": "GG5026", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 51, "name": "SUMAN KUSHWAHA", "customerId": "GG5035", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 52, "name": "UDASA BAI DEWANGAN", "customerId": "GG5038", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 53, "name": "Gaindi Sapha", "customerId": "GG5033", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 54, "name": "RUPA SAHU", "customerId": "GG5128", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 55, "name": "DULARI BAI DESHMUKH", "customerId": "GG5040", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 56, "name": "ANUSUIYA BAI", "customerId": "GG5041", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 57, "name": "SARASVATI SONI", "customerId": "GG5044", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 58, "name": "RAJNI BAI", "customerId": "GG5045", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 59, "name": "TIKESHWAR CHANDRAKAR", "customerId": "GG5047", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 60, "name": "SANTOSHI", "customerId": "GG5048", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 61, "name": "PUNAM NISHAD", "customerId": "GG5049", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 62, "name": "RITU SAHU", "customerId": "GG5050", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 63, "name": "BHOJ RAM SAHU", "customerId": "GG5051", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 64, "name": "RAVINDRA KUMAR", "customerId": "GG5052", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 65, "name": "KIRAN THAKUR", "customerId": "GG5055", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 66, "name": "SHARDA SAHU", "customerId": "GG5056", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 67, "name": "LALESHWARI SAHU", "customerId": "GG5129", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 68, "name": "POOJA DEWANGAN", "customerId": "GG5057", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 69, "name": "RENUKA", "customerId": "GG5061", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 70, "name": "MAJUM", "customerId": "GG5062", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 71, "name": "RAJKUMARI TANDAN", "customerId": "GG5063", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 72, "name": "MOHIT KUSHWAH", "customerId": "GG5064", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 73, "name": "MOTIN BAI", "customerId": "GG5065", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 74, "name": "LEELA THAKUR", "customerId": "GG5066", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 75, "name": "JAGRITI SAHU", "customerId": "GG5067", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 76, "name": "DHANESHWAR", "customerId": "GG5068", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 77, "name": "KHEMAN THAKUR", "customerId": "GG5069", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 78, "name": "AHILYA DESHMUKH", "customerId": "GG5070", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 79, "name": "MINA THAKUR", "customerId": "GG5071", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 80, "name": "FULESHWARI YADAV", "customerId": "GG5072", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 81, "name": "MANOJ YADAV", "customerId": "GG5073", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 82, "name": "ANITA DEWANGAN", "customerId": "GG5074", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 83, "name": "SHARDA BAI DHOBI", "customerId": "GG5075", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 84, "name": "KUMARI BAI DHIWAR", "customerId": "GG5076", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 85, "name": "UPREKHA THAKUR", "customerId": "GG5078", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 86, "name": "SURJA BAI SAHU", "customerId": "GG5079", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 87, "name": "KIRAN SAHU", "customerId": "GG5080", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 88, "name": "CHHAYA SAHU", "customerId": "GG5082", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 89, "name": "DEVKI YADAV", "customerId": "GG5083", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 90, "name": "ASHWANI SAHU", "customerId": "GG5085", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 91, "name": "HEMANT YADAV", "customerId": "GG5086", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 92, "name": "GOVIND PAL", "customerId": "GG5088", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 93, "name": "GAYATRI SAHU", "customerId": "GG5090", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 94, "name": "JAIN KUMAR SAHU", "customerId": "GG5092", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 95, "name": "RAMESH KUMAR SAHU", "customerId": "GG5103", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 96, "name": "TEENA DEWANGAN", "customerId": "GG5105", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 97, "name": "SUSHIL SAHU", "customerId": "GG5099", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 98, "name": "BINDIYA NISAD", "customerId": "GG5110", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 99, "name": "AJAY PATEL", "customerId": "GG5111", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 100, "name": "RANJITA WADKAR", "customerId": "GG5096", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 101, "name": "DHANESHVARI VARMA", "customerId": "GG5104", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 102, "name": "ASLAM", "customerId": "GG5112", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 103, "name": "HIMANSHU PATEL", "customerId": "GG5113", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 104, "name": "ARJUN SAROJ", "customerId": "GG5114", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 105, "name": "SANTOSH KUMAR NAGWANSHI", "customerId": "GG5115", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 106, "name": "NEESHU DHANGAR", "customerId": "GG5119", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 107, "name": "YAMAN KUMAR SAHU", "customerId": "GG5120", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 108, "name": "AFROZ", "customerId": "GG5117", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 109, "name": "SARSWATI BAI BAGHEL", "customerId": "GG5121", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 110, "name": "PAVANREKHA BHUARYA", "customerId": "GG5122", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 111, "name": "SHISHUPAL", "customerId": "GG5087", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 112, "name": "KHILAVAN KUMAR VERMA", "customerId": "GG5132", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 113, "name": "SHUBHAM AMBADE", "customerId": "GG5127", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 114, "name": "RAJESH PANDIT", "customerId": "GG5131", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 115, "name": "SUNIL PAL", "customerId": "GG5130", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 116, "name": "INDRA KUMAR SAHU", "customerId": "GG5116", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 117, "name": "TULA RAM YADAV", "customerId": "GG5135", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 118, "name": "NURJAHAN BANU", "customerId": "GG5136", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 119, "name": "AKANKSHA MASIH", "customerId": "GG5137", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 120, "name": "MANJU YADAV", "customerId": "GG5138", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 121, "name": "DURGESH KUMAR", "customerId": "GG5125", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 122, "name": "MANSINGH SAHU", "customerId": "GG5140", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 123, "name": "LAXMI", "customerId": "GG5095", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 124, "name": "AJAY TIWARI", "customerId": "GG5141", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 125, "name": "ROHIT KUMAR PATEL", "customerId": "GG5100", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 126, "name": "FAHIMUR RAHMAN", "customerId": "GG5108", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 127, "name": "KHELENDRA KUMAR VERMA", "customerId": "GG5142", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 128, "name": "HASEENA BEGAM ANSARI", "customerId": "GG5143", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 129, "name": "NAFISHA BEE", "customerId": "GG5144", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 130, "name": "BHAVESH KUMAR", "customerId": "GG5145", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 131, "name": "RUKHMANI", "customerId": "GG5147", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 },
+  { "rank": 132, "name": "RAKESH KUMAR", "customerId": "GG5148", "points": "0000", "recruits": 0, "directPoints": 0, "firstOrbitPoints": 0, "secondOrbitPoints": 0 }
 ];
 
 // =====================================================
-// ORBIT NETWORK (sponsorId -> [directRecruitIds])
+// MODULE 2: ORBIT NETWORK
+// sponsorId -> [directRecruitIds]  (unlimited depth)
+// Points apply only up to 2nd orbit level.
 // =====================================================
 var orbitNet = {
-  'GG5091': ['GG5098', 'GG5013', 'GG5097', 'GG5048', 'GG5047', 'GG5044'],
+  'GG5091': ['GG5098', 'GG5013', 'GG5097', 'GG5148],
   'GG5098': ['GG5010', 'GG5025', 'GG5129'],
-  'GG5013': ['GG5093', 'GG5134', 'GG5016', 'GG5148', 'GG5147', 'GG5145'],
+  'GG5013': ['GG5093', 'GG5134', 'GG5016'],
   'GG5097': ['GG5139', 'GG5146'],
   'GG5010': ['GG5102', 'GG5094'],
   'GG5025': ['GG5084', 'GG5081'],
   'GG5129': ['GG5133', 'GG5089'],
   'GG5093': ['GG5014', 'GG5054'],
-  'GG5134': ['GG5022', 'GG5118'],
-  'GG5016': ['GG5141', 'GG5095', 'GG5138']
+  'GG5134': ['GG5022', 'GG5118']
 };
 
+// Sponsor map: childId -> sponsorId (reverse index for tree rendering)
+var sponsorMap = {};
+(function buildSponsorMap() {
+  Object.keys(orbitNet).forEach(function(sponsorId) {
+    orbitNet[sponsorId].forEach(function(childId) {
+      sponsorMap[childId] = sponsorId;
+    });
+  });
+})();
+
+// =====================================================
+// ORBIT HELPER FUNCTIONS
+// =====================================================
+
+// Returns first orbit (direct recruits) of a given user
 function getOrbit1(id) { return orbitNet[id] || []; }
+
+// Returns second orbit (recruits of recruits) — includes {id, via} objects
 function getOrbit2(id) {
   var r = [];
-  getOrbit1(id).forEach(mid => (orbitNet[mid] || []).forEach(kid => r.push({ id: kid, via: mid })));
+  getOrbit1(id).forEach(function(mid) {
+    (orbitNet[mid] || []).forEach(function(kid) {
+      r.push({ id: kid, via: mid });
+    });
+  });
   return r;
 }
 
-// MLM points: Level 1 direct = +2, Level 2 (grand upline) = +1
+// =====================================================
+// MODULE 3: ORBIT POINTS CALCULATION
+// Rules:
+//   Recruiting B:      A gets +2 directPoints
+//   B recruits C:      B gets +2 directPoints, A gets +1 firstOrbitPoint
+//   C recruits D:      C gets +2 directPoints, B gets +1 firstOrbitPoint, A gets 0
+// Points apply only up to 2nd orbit level.
+// =====================================================
 function calcMLM(id) {
   var fo = getOrbit1(id);
-  var dp = fo.length * 2;      // direct points (+2 each)
-  var op = 0;                   // 1st orbit points (sum of direct recruits' recruits * 2)
-  var o2pts = 0;                // 2nd orbit points (+1 each for grand-recruits)
-  fo.forEach(mid => {
-    var kids = orbitNet[mid] || [];
-    op += kids.length * 2;      // each of YOUR direct recruits earns +2 when THEY recruit
-    o2pts += kids.length * 1;   // you earn +1 for each of their recruits
+  // directPoints: 2 per direct recruit
+  var dp = fo.length * 2;
+  // firstOrbitPoints: 1 per 2nd-level recruit (fo member's recruits)
+  var fop = 0;
+  fo.forEach(function(mid) {
+    fop += (orbitNet[mid] || []).length;
   });
-  // For leaderboard: dp = your direct pts, op = 1st orbit contributions, o2pts = 2nd orbit pts
-  return { dp: dp, dr: fo.length, op: op, o2: o2pts, total: dp + o2pts };
+  // secondOrbitPoints: recruits at 3rd level or beyond earn 0 for this user
+  // (field kept for structural completeness — always 0 from network calc)
+  return {
+    dp: dp,             // direct points from orbit network
+    fop: fop,           // first orbit points from orbit network
+    sop: 0,             // second orbit (3rd level) = 0 per spec
+    dr: fo.length,      // direct recruit count
+    total: dp + fop     // total from orbit
+  };
 }
 
+// Parse points string (handles "0000", "10", etc.)
 function parsePts(p) {
-  var n = parseInt(String(p).replace(/\D/g,''), 10);
+  var n = parseInt(String(p).replace(/\D/g, ''), 10);
   return isNaN(n) ? 0 : n;
 }
 
-var memberMap = {};
-leaderboardData.forEach(m => { memberMap[m.customerId] = m; });
+// Get all three point fields from a member (manual + orbit combined)
+function getMemberTotalPoints(item) {
+  var m = calcMLM(item.customerId);
+  var manualDp = item.directPoints || 0;
+  var manualFop = item.firstOrbitPoints || 0;
+  var manualSop = item.secondOrbitPoints || 0;
+  var basePts = parsePts(item.points);
+  // Manual points override; orbit points are additive
+  var dp = manualDp + m.dp + basePts;
+  var fop = manualFop + m.fop;
+  var sop = manualSop + m.sop;
+  return {
+    directPoints: dp,
+    firstOrbitPoints: fop,
+    secondOrbitPoints: sop,
+    totalPoints: dp + fop + sop,
+    directRecruitment: m.dr
+  };
+}
 
+// Member lookup map by customerId
+var memberMap = {};
+leaderboardData.forEach(function(m) { memberMap[m.customerId] = m; });
+
+// Sorted leaderboard — uses totalPoints descending
 function getSorted() {
-  var d = leaderboardData.filter(x => !x.name.includes('xxxxxxx')).slice().sort((a, b) => {
-    var ta = calcMLM(a.customerId).total + parsePts(a.points);
-    var tb = calcMLM(b.customerId).total + parsePts(b.points);
-    return tb - ta;
+  var d = leaderboardData.filter(function(x) {
+    return !x.name.includes('xxxxxxx');
+  }).slice().sort(function(a, b) {
+    return getMemberTotalPoints(b).totalPoints - getMemberTotalPoints(a).totalPoints;
   });
-  d.forEach((x, i) => x._rank = i + 1);
+  d.forEach(function(x, i) { x._rank = i + 1; });
   return d;
 }
 
 // =====================================================
-// BUILD LEADERBOARD
+// LEADERBOARD RENDER ENGINE
+// Animated row-by-row build with flash effects
 // =====================================================
 var prevRanks = {}, openExpId = null;
 
 function animCell(el, val) {
   if (!val) { el.textContent = '0'; return; }
   var step = Math.max(1, Math.ceil(val / 60)), cur = 0;
-  var t = setInterval(() => {
+  var t = setInterval(function() {
     cur = Math.min(cur + step, val);
     el.textContent = cur;
     if (cur >= val) clearInterval(t);
@@ -1185,13 +1618,15 @@ function buildLB() {
   tbody.innerHTML = '';
   openExpId = null;
 
-  data.forEach((item, idx) => {
+  // Use DocumentFragment for performance with large datasets
+  var frag = document.createDocumentFragment();
+
+  data.forEach(function(item, idx) {
     var rank = item._rank;
-    var m = calcMLM(item.customerId);
-    var base = parsePts(item.points);
-    var total = m.total + base;
+    var pts = getMemberTotalPoints(item);
     var expId = 'exp_' + item.customerId + '_' + idx;
 
+    // Rank flash animation
     var flash = '';
     if (prevRanks[item.customerId] !== undefined) {
       if (rank < prevRanks[item.customerId]) flash = 'flashup';
@@ -1205,6 +1640,7 @@ function buildLB() {
     tr.style.animationDelay = Math.min(idx * 12, 600) + 'ms';
     tr.setAttribute('data-eid', expId);
 
+    // Medal badges for top 3
     var rankTd;
     if (rank === 1) rankTd = '<td class="lb-td"><span class="medal-badge medal-gold">1</span></td>';
     else if (rank === 2) rankTd = '<td class="lb-td"><span class="medal-badge medal-silver">2</span></td>';
@@ -1222,25 +1658,26 @@ function buildLB() {
         badge3 + '<span class="chev">▼</span>' +
       '</td>' +
       '<td class="lb-td"><span class="cid-text">' + item.customerId + '</span></td>' +
-      '<td class="lb-td" style="color:var(--text-muted);font-size:.82rem">' + m.dr + ' recruits</td>' +
-      '<td class="lb-td pts-blue" data-v="' + m.dp + '">0</td>' +
-      '<td class="lb-td pts-teal" data-v="' + m.op + '">0</td>' +
-      '<td class="lb-td pts-purple" data-v="' + m.o2 + '">0</td>' +
-      '<td class="lb-td total-glow" style="font-weight:800;font-size:.95rem;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent" data-v="' + total + '">0</td>';
+      '<td class="lb-td" style="color:var(--text-muted);font-size:.82rem">' + pts.directRecruitment + ' recruits</td>' +
+      '<td class="lb-td pts-blue" data-v="' + pts.directPoints + '">0</td>' +
+      '<td class="lb-td pts-teal" data-v="' + pts.firstOrbitPoints + '">0</td>' +
+      '<td class="lb-td pts-purple" data-v="' + pts.secondOrbitPoints + '">0</td>' +
+      '<td class="lb-td total-glow" style="font-weight:800;font-size:.95rem;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent" data-v="' + pts.totalPoints + '">0</td>';
 
-    // Expand row
+    // Expandable row showing direct team
     var expTr = document.createElement('tr');
     expTr.className = 'exp-row';
     expTr.id = expId;
     var fo = getOrbit1(item.customerId);
-    var expRows = fo.length > 0 ? fo.map(mid => {
+    var expRows = fo.length > 0 ? fo.map(function(mid) {
       var mm = memberMap[mid];
-      return '<tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 16px;font-size:.82rem;color:var(--text-primary)">' + (mm ? mm.name : mid) + '</td><td style="padding:8px 16px;font-size:.72rem;font-family:monospace;color:var(--text-muted)">' + mid + '</td><td style="padding:8px 16px;font-size:.82rem;color:var(--emerald-light);font-weight:700">' + (mm ? parsePts(mm.points) : 0) + ' pts</td></tr>';
+      var mpts = mm ? getMemberTotalPoints(mm).totalPoints : 0;
+      return '<tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 16px;font-size:.82rem;color:var(--text-primary)">' + (mm ? mm.name : mid) + '</td><td style="padding:8px 16px;font-size:.72rem;font-family:monospace;color:var(--text-muted)">' + mid + '</td><td style="padding:8px 16px;font-size:.82rem;color:var(--emerald-light);font-weight:700">' + mpts + ' pts</td></tr>';
     }).join('') : '<tr><td colspan="3" style="padding:12px 16px;font-size:.8rem;color:var(--text-muted)">No direct recruits yet</td></tr>';
 
-    expTr.innerHTML = '<td colspan="8" style="padding:0"><div style="margin:6px 16px 10px;background:rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.1);border-radius:12px;overflow:hidden"><div style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.05);font-size:.72rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase">Direct Team — ' + item.name + '</div><table style="width:100%"><thead><tr style="background:rgba(255,255,255,.03)"><th style="padding:8px 16px;text-align:left;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">Member</th><th style="padding:8px 16px;text-align:left;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">ID</th><th style="padding:8px 16px;text-align:left;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">Points</th></tr></thead><tbody>' + expRows + '</tbody></table></div></td>';
+    expTr.innerHTML = '<td colspan="8" style="padding:0"><div style="margin:6px 16px 10px;background:rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.1);border-radius:12px;overflow:hidden"><div style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.05);font-size:.72rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase">Direct Team — ' + item.name + '</div><table style="width:100%"><thead><tr style="background:rgba(255,255,255,.03)"><th style="padding:8px 16px;text-align:left;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">Member</th><th style="padding:8px 16px;text-align:left;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">ID</th><th style="padding:8px 16px;text-align:left;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">Total Pts</th></tr></thead><tbody>' + expRows + '</tbody></table></div></td>';
 
-    // Click expand (not on name)
+    // Row click: expand/collapse
     tr.addEventListener('click', function(e) {
       if (e.target.classList.contains('name-link')) return;
       var isOpen = expTr.classList.contains('open');
@@ -1254,25 +1691,29 @@ function buildLB() {
       else { expTr.classList.add('open'); tr.classList.add('xopen'); openExpId = expId; }
     });
 
+    // Name click: open orbit modal
     tr.querySelector('.name-link').addEventListener('click', function(e) {
       e.stopPropagation();
       GB_openOrbit(this.getAttribute('data-cid'), []);
     });
 
-    tbody.appendChild(tr);
-    tbody.appendChild(expTr);
+    frag.appendChild(tr);
+    frag.appendChild(expTr);
   });
 
-  tbody.querySelectorAll('[data-v]').forEach((cell, i) => {
+  tbody.appendChild(frag);
+
+  // Animate number cells
+  tbody.querySelectorAll('[data-v]').forEach(function(cell, i) {
     var v = parseInt(cell.getAttribute('data-v'), 10) || 0;
-    setTimeout(() => animCell(cell, v), i * 8);
+    setTimeout(function() { animCell(cell, v); }, i * 8);
   });
 }
 
-// Search
+// Leaderboard search
 document.getElementById('lbSearch').addEventListener('input', function() {
   var q = this.value.trim().toLowerCase();
-  document.querySelectorAll('#lbBody .lb-row').forEach(row => {
+  document.querySelectorAll('#lbBody .lb-row').forEach(function(row) {
     var nm = row.querySelector('.name-link') ? row.querySelector('.name-link').textContent.trim().toLowerCase() : '';
     var ci = row.querySelector('.cid-text') ? row.querySelector('.cid-text').textContent.trim().toLowerCase() : '';
     var eid = row.getAttribute('data-eid');
@@ -1293,12 +1734,12 @@ document.getElementById('lbSearch').addEventListener('input', function() {
 buildLB();
 
 // =====================================================
-// ORBIT MODAL — INFINITE RECURSIVE NAVIGATION
+// MODULE 4: ORBIT MODAL — INFINITE RECURSIVE NAVIGATION
 // =====================================================
 var GB_curId = null, GB_curTab = 1, GB_breadcrumb = [];
 
 function GB_initials(nm) {
-  return nm.trim().split(/\s+/).map(w => w[0] || '').slice(0, 2).join('').toUpperCase();
+  return nm.trim().split(/\s+/).map(function(w) { return w[0] || ''; }).slice(0, 2).join('').toUpperCase();
 }
 
 function GB_openOrbit(cid, breadcrumb) {
@@ -1306,29 +1747,26 @@ function GB_openOrbit(cid, breadcrumb) {
   GB_curTab = 1;
   GB_breadcrumb = breadcrumb || [];
   var mem = memberMap[cid];
-  if (!mem) {
-    // Create a virtual member if not in main list
-    mem = { name: cid, customerId: cid, points: '0' };
-  }
+  if (!mem) mem = { name: cid, customerId: cid, points: '0', directPoints: 0, firstOrbitPoints: 0, secondOrbitPoints: 0 };
 
   document.getElementById('OM_NAME').textContent = mem.name + ' — Orbit';
   document.getElementById('OM_CID').textContent = 'ID: ' + mem.customerId;
 
-  var fo = getOrbit1(cid), so = getOrbit2(cid), m = calcMLM(cid);
+  var fo = getOrbit1(cid), so = getOrbit2(cid);
+  var pts = getMemberTotalPoints(mem);
   document.getElementById('OS_D').textContent = fo.length;
   document.getElementById('OS_2').textContent = so.length;
-  document.getElementById('OS_P').textContent = m.total + parsePts(mem.points);
+  document.getElementById('OS_P').textContent = pts.totalPoints;
 
-  // Breadcrumb
+  // Breadcrumb trail
   var bcEl = document.getElementById('OM_BREADCRUMB');
   if (GB_breadcrumb.length === 0) {
     bcEl.innerHTML = '';
   } else {
     var html = '<span onclick="GB_backToRoot()" style="cursor:pointer;color:var(--gold-light)">🏠 Root</span>';
-    GB_breadcrumb.forEach((bc, i) => {
+    GB_breadcrumb.forEach(function(bc, i) {
       html += ' <span class="sep">›</span> ';
-      var idx = i;
-      html += '<span onclick="GB_goBack(' + idx + ')" style="cursor:pointer;color:var(--emerald-light)">' + bc.name + '</span>';
+      html += '<span onclick="GB_goBack(' + i + ')" style="cursor:pointer;color:var(--emerald-light)">' + bc.name + '</span>';
     });
     html += ' <span class="sep">›</span> <span style="color:var(--text-muted)">' + mem.name + '</span>';
     bcEl.innerHTML = html;
@@ -1375,11 +1813,12 @@ function GB_renderTab(tab) {
     }
     var desc = document.createElement('div');
     desc.className = 'orb-desc';
-    desc.innerHTML = '<strong>' + fo.length + '</strong> direct recruit' + (fo.length > 1 ? 's' : '') + ' — each earns <strong>+2 points</strong> to their recruiter. Click any name to explore their orbit.';
+    desc.innerHTML = '<strong>' + fo.length + '</strong> direct recruit' + (fo.length > 1 ? 's' : '') + ' — each earns <strong>+2 direct points</strong> to their recruiter. Click any name to explore their orbit.';
     area.appendChild(desc);
 
-    fo.forEach(id => {
-      var mm = memberMap[id], nm = mm ? mm.name : id, pts = mm ? parsePts(mm.points) : 0;
+    fo.forEach(function(id) {
+      var mm = memberMap[id], nm = mm ? mm.name : id;
+      var mpts = mm ? getMemberTotalPoints(mm).totalPoints : 0;
       var c = document.createElement('div');
       c.className = 'orb-card';
       var hasSubOrbit = (orbitNet[id] || []).length > 0;
@@ -1388,13 +1827,13 @@ function GB_renderTab(tab) {
         '<div class="orb-info">' +
           '<div class="orb-nm">' + nm + '</div>' +
           '<div class="orb-id">' + id + '</div>' +
-          '<div class="orb-via">Direct recruit · <strong style="color:var(--emerald-light)">+2 pts</strong> to you</div>' +
+          '<div class="orb-via">Direct recruit · <strong style="color:var(--emerald-light)">+2 direct pts</strong> to you · <strong style="color:#34D399">+1 first orbit pt</strong> per their recruit</div>' +
           (hasSubOrbit ? '<div class="orb-click-hint">🔗 Has ' + (orbitNet[id] || []).length + ' sub-recruit(s) — click to explore</div>' : '') +
         '</div>' +
-        '<div class="orb-pts">' + pts + ' pts</div>';
+        '<div class="orb-pts">' + mpts + ' pts</div>';
 
-      c.addEventListener('click', () => {
-        var newBc = [...GB_breadcrumb, { id: GB_curId, name: memberMap[GB_curId] ? memberMap[GB_curId].name : GB_curId }];
+      c.addEventListener('click', function() {
+        var newBc = GB_breadcrumb.concat([{ id: GB_curId, name: memberMap[GB_curId] ? memberMap[GB_curId].name : GB_curId }]);
         GB_openOrbit(id, newBc);
       });
       area.appendChild(c);
@@ -1408,13 +1847,13 @@ function GB_renderTab(tab) {
     }
     var desc2 = document.createElement('div');
     desc2.className = 'orb-desc';
-    desc2.innerHTML = '<strong>' + so.length + '</strong> second-orbit member' + (so.length > 1 ? 's' : '') + ' — each earns you <strong>+1 point</strong>. Click any to explore their orbit.';
+    desc2.innerHTML = '<strong>' + so.length + '</strong> second-orbit member' + (so.length > 1 ? 's' : '') + ' — each earns you <strong>+1 first orbit point</strong>. Click any to explore their orbit.';
     area.appendChild(desc2);
 
-    so.forEach(entry => {
+    so.forEach(function(entry) {
       var mm = memberMap[entry.id], vm = memberMap[entry.via];
       var nm = mm ? mm.name : entry.id, vnm = vm ? vm.name : entry.via;
-      var pts = mm ? parsePts(mm.points) : 0;
+      var mpts = mm ? getMemberTotalPoints(mm).totalPoints : 0;
       var c = document.createElement('div');
       c.className = 'orb-card orb-card-2';
       c.innerHTML =
@@ -1422,12 +1861,12 @@ function GB_renderTab(tab) {
         '<div class="orb-info">' +
           '<div class="orb-nm">' + nm + '</div>' +
           '<div class="orb-id">' + entry.id + '</div>' +
-          '<div class="orb-via">Via <strong style="color:var(--emerald-light)">' + vnm + '</strong> · <strong style="color:#A78BFA">+1 pt</strong> to you</div>' +
+          '<div class="orb-via">Via <strong style="color:var(--emerald-light)">' + vnm + '</strong> · <strong style="color:#A78BFA">+1 first orbit pt</strong> to you</div>' +
         '</div>' +
-        '<div class="orb-pts" style="background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(167,139,250,.1));color:#A78BFA;border-color:rgba(167,139,250,.25)">' + pts + ' pts</div>';
+        '<div class="orb-pts" style="background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(167,139,250,.1));color:#A78BFA;border-color:rgba(167,139,250,.25)">' + mpts + ' pts</div>';
 
-      c.addEventListener('click', () => {
-        var newBc = [...GB_breadcrumb, { id: GB_curId, name: memberMap[GB_curId] ? memberMap[GB_curId].name : GB_curId }];
+      c.addEventListener('click', function() {
+        var newBc = GB_breadcrumb.concat([{ id: GB_curId, name: memberMap[GB_curId] ? memberMap[GB_curId].name : GB_curId }]);
         GB_openOrbit(entry.id, newBc);
       });
       area.appendChild(c);
@@ -1435,19 +1874,299 @@ function GB_renderTab(tab) {
   }
 }
 
-// Close on backdrop click
 document.getElementById('GB_ORBIT_MODAL').addEventListener('click', function(e) {
   if (e.target === this) GB_closeOrbit();
 });
 
 // =====================================================
+// MODULE 5: POINTS MANAGER
+// Allows manual update of directPoints, firstOrbitPoints,
+// secondOrbitPoints for any member by customerId.
+// Recalculates totalPoints and refreshes the leaderboard.
+// =====================================================
+
+// Toast notification helper
+function showToast(msg, type) {
+  var t = document.getElementById('globalToast');
+  t.textContent = msg;
+  t.className = 'pm-toast ' + (type || 'success');
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3500);
+}
+
+// Live preview of member info when CID is typed
+function PM_preview() {
+  var cid = document.getElementById('PM_CID').value.trim().toUpperCase();
+  var el = document.getElementById('PM_PREVIEW');
+  var mem = memberMap[cid];
+  if (!mem) {
+    el.innerHTML = cid ? '<span style="color:#f87171">⚠ No member found with ID: ' + cid + '</span>' : 'Enter a Customer ID to preview member info';
+    return;
+  }
+  var pts = getMemberTotalPoints(mem);
+  el.innerHTML =
+    '<span style="color:var(--gold-light);font-weight:700">' + mem.name + '</span>' +
+    ' &nbsp;·&nbsp; <span style="font-family:monospace;color:var(--text-muted)">' + cid + '</span>' +
+    ' &nbsp;·&nbsp; Total: <span style="color:var(--emerald-light);font-weight:700">' + pts.totalPoints + ' pts</span>' +
+    ' &nbsp;·&nbsp; <span style="color:#60A5FA">D:' + pts.directPoints + '</span>' +
+    ' <span style="color:#34D399">F:' + pts.firstOrbitPoints + '</span>' +
+    ' <span style="color:#A78BFA">S:' + pts.secondOrbitPoints + '</span>';
+  // Pre-fill inputs with current manual values
+  document.getElementById('PM_DP').value = mem.directPoints || 0;
+  document.getElementById('PM_FOP').value = mem.firstOrbitPoints || 0;
+  document.getElementById('PM_SOP').value = mem.secondOrbitPoints || 0;
+  PM_calcPreview();
+}
+
+// Live total preview calculator
+function PM_calcPreview() {
+  var dp = parseInt(document.getElementById('PM_DP').value) || 0;
+  var fop = parseInt(document.getElementById('PM_FOP').value) || 0;
+  var sop = parseInt(document.getElementById('PM_SOP').value) || 0;
+  document.getElementById('PM_TOTAL_PREVIEW').textContent = dp + fop + sop;
+}
+
+// Apply the points update
+function PM_update() {
+  var cid = document.getElementById('PM_CID').value.trim().toUpperCase();
+  var mem = memberMap[cid];
+  if (!mem) {
+    showToast('⚠ Member not found: ' + cid, 'error');
+    return;
+  }
+  var dp = parseInt(document.getElementById('PM_DP').value) || 0;
+  var fop = parseInt(document.getElementById('PM_FOP').value) || 0;
+  var sop = parseInt(document.getElementById('PM_SOP').value) || 0;
+
+  // Update member data
+  mem.directPoints = dp;
+  mem.firstOrbitPoints = fop;
+  mem.secondOrbitPoints = sop;
+
+  // Refresh leaderboard
+  buildLB();
+  PM_preview(); // refresh preview
+  showToast('✓ Points updated for ' + mem.name + ' — Total: ' + (dp + fop + sop), 'success');
+}
+
+// =====================================================
+// MODULE 6: TEAM TREE
+// Full hierarchical display of the network.
+// Click ▶ to expand children; First/Second Orbit buttons
+// open the existing orbit modal.
+// Supports unlimited depth; points only count to orbit 2.
+// =====================================================
+
+// Determine root members (those with no sponsor in orbitNet)
+function TT_getRoots() {
+  return leaderboardData.filter(function(m) {
+    return !sponsorMap[m.customerId];
+  });
+}
+
+// Get initials for tree avatar
+function TT_initials(nm) {
+  return nm.trim().split(/\s+/).map(function(w) { return w[0] || ''; }).slice(0, 2).join('').toUpperCase();
+}
+
+// Render a single tree node and its children recursively
+function TT_renderNode(memberId, depth) {
+  var mem = memberMap[memberId];
+  var nm = mem ? mem.name : memberId;
+  var pts = mem ? getMemberTotalPoints(mem).totalPoints : 0;
+  var children = orbitNet[memberId] || [];
+  var hasChildren = children.length > 0;
+  var nodeId = 'tn_' + memberId.replace(/\W/g, '_');
+  var childrenId = 'tc_' + memberId.replace(/\W/g, '_');
+  var depthClass = depth === 0 ? '' : depth === 1 ? 'depth-1' : 'depth-2';
+  var marginLeft = depth > 0 ? (depth * 4) + 'px' : '0';
+
+  var html = '<div class="tree-node-wrap" id="' + nodeId + '">';
+  html += '<div class="tree-node" style="margin-left:' + marginLeft + '" data-nm="' + nm.toLowerCase() + '" data-id="' + memberId + '">';
+
+  // Expand toggle
+  if (hasChildren) {
+    html += '<button class="tree-expand-btn" onclick="TT_toggleNode(\'' + memberId + '\')" title="Expand/Collapse">▶</button>';
+  } else {
+    html += '<span style="width:22px;flex-shrink:0"></span>';
+  }
+
+  html += '<div class="tree-avi ' + depthClass + '">' + TT_initials(nm) + '</div>';
+  html += '<div class="tree-info">';
+  html += '<div class="tree-nm">' + nm + '</div>';
+  html += '<div class="tree-id">' + memberId + '</div>';
+  html += '</div>';
+  html += '<div class="tree-pts-badge">' + pts + ' pts</div>';
+
+  // Orbit buttons
+  html += '<div class="tree-orbit-btns">';
+  html += '<button class="tree-ob-btn fo" onclick="TT_openOrbit(\'' + memberId + '\', 1, event)" title="First Orbit">🌱 Orbit 1</button>';
+  html += '<button class="tree-ob-btn so" onclick="TT_openOrbit(\'' + memberId + '\', 2, event)" title="Second Orbit">🌐 Orbit 2</button>';
+  html += '</div>';
+  html += '</div>'; // .tree-node
+
+  // Children container
+  if (hasChildren) {
+    html += '<div class="tree-children" id="' + childrenId + '">';
+    children.forEach(function(childId) {
+      html += TT_renderNode(childId, depth + 1);
+    });
+    html += '</div>';
+  }
+
+  html += '</div>'; // .tree-node-wrap
+  return html;
+}
+
+// Toggle expand/collapse for a tree node
+function TT_toggleNode(memberId) {
+  var childrenId = 'tc_' + memberId.replace(/\W/g, '_');
+  var nodeId = 'tn_' + memberId.replace(/\W/g, '_');
+  var childrenEl = document.getElementById(childrenId);
+  var nodeEl = document.getElementById(nodeId);
+  if (!childrenEl) return;
+  var isOpen = childrenEl.classList.contains('open');
+  childrenEl.classList.toggle('open', !isOpen);
+  var btn = nodeEl ? nodeEl.querySelector('.tree-expand-btn') : null;
+  if (btn) btn.classList.toggle('open', !isOpen);
+}
+
+// Open orbit modal from tree button
+function TT_openOrbit(memberId, orbitNum, e) {
+  e.stopPropagation();
+  GB_openOrbit(memberId, []);
+  // Switch to the correct tab after modal opens
+  setTimeout(function() { GB_switchTab(orbitNum); }, 100);
+}
+
+// Build the full tree
+function TT_build() {
+  var body = document.getElementById('treeBody');
+  if (!body) return;
+  var roots = TT_getRoots();
+  var html = '';
+  // Render root nodes first; all others are rendered recursively as children
+  // Root nodes = members NOT appearing as children in any orbitNet value
+  var allChildIds = new Set();
+  Object.values(orbitNet).forEach(function(arr) {
+    arr.forEach(function(id) { allChildIds.add(id); });
+  });
+  var rootMembers = leaderboardData.filter(function(m) {
+    return !allChildIds.has(m.customerId);
+  });
+  rootMembers.forEach(function(m) {
+    html += TT_renderNode(m.customerId, 0);
+  });
+  body.innerHTML = html || '<div style="padding:24px;text-align:center;color:var(--text-muted)">No members yet.</div>';
+  document.getElementById('treeMemberCount').textContent = leaderboardData.length + ' members total';
+}
+
+// Filter/search tree nodes
+function TT_filter(q) {
+  q = (q || '').toLowerCase().trim();
+  document.querySelectorAll('#treeBody .tree-node').forEach(function(node) {
+    var nm = node.getAttribute('data-nm') || '';
+    var id = (node.getAttribute('data-id') || '').toLowerCase();
+    var wrap = node.closest('.tree-node-wrap');
+    if (!q || nm.includes(q) || id.includes(q)) {
+      if (wrap) wrap.style.display = '';
+      node.style.background = q ? 'rgba(16,185,129,.08)' : '';
+      node.style.borderColor = q ? 'rgba(16,185,129,.3)' : '';
+    } else {
+      if (wrap) wrap.style.display = 'none';
+    }
+  });
+}
+
+TT_build();
+
+// =====================================================
+// MODULE 7: ADD MEMBER MODAL
+// Opens a modal to add a new member with auto-generated ID.
+// Updates leaderboardData, memberMap, orbitNet, sponsorMap.
+// Rebuilds leaderboard and tree after save.
+// =====================================================
+
+// Initialize ID generator with existing IDs
+ID_GEN.init(leaderboardData.map(function(m) { return m.customerId; }));
+
+function AM_open() {
+  // Show next available ID
+  document.getElementById('AM_GEN_ID').textContent = ID_GEN.peek();
+  document.getElementById('AM_NAME').value = '';
+  document.getElementById('AM_SPONSOR').value = '';
+  document.getElementById('AM_SPONSOR_PREVIEW').textContent = '';
+  document.getElementById('addMemberModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function AM_close() {
+  document.getElementById('addMemberModal').classList.remove('open');
+  document.body.style.overflow = 'auto';
+}
+
+// Sponsor ID live preview
+document.getElementById('AM_SPONSOR').addEventListener('input', function() {
+  var sid = this.value.trim().toUpperCase();
+  var prev = document.getElementById('AM_SPONSOR_PREVIEW');
+  if (!sid) { prev.textContent = '(Root member — no sponsor)'; return; }
+  var sm = memberMap[sid];
+  prev.textContent = sm ? '✓ Sponsor: ' + sm.name : '⚠ ID not found';
+  prev.style.color = sm ? '#34D399' : '#f87171';
+});
+
+function AM_save() {
+  var name = document.getElementById('AM_NAME').value.trim();
+  if (!name) { showToast('⚠ Please enter a name', 'error'); return; }
+  var sponsor = document.getElementById('AM_SPONSOR').value.trim().toUpperCase();
+  if (sponsor && !memberMap[sponsor]) {
+    showToast('⚠ Sponsor ID not found: ' + sponsor, 'error'); return;
+  }
+
+  // Generate new ID
+  var newId = ID_GEN.next();
+
+  // Create member object
+  var newMember = {
+    rank: leaderboardData.length + 1,
+    name: name,
+    customerId: newId,
+    points: '0',
+    recruits: 0,
+    directPoints: 0,
+    firstOrbitPoints: 0,
+    secondOrbitPoints: 0
+  };
+
+  leaderboardData.push(newMember);
+  memberMap[newId] = newMember;
+
+  // Link into orbit network
+  if (sponsor) {
+    if (!orbitNet[sponsor]) orbitNet[sponsor] = [];
+    orbitNet[sponsor].push(newId);
+    sponsorMap[newId] = sponsor;
+  }
+
+  // Rebuild both leaderboard and tree
+  buildLB();
+  TT_build();
+  AM_close();
+  showToast('✓ Member added: ' + name + ' (' + newId + ')', 'success');
+}
+
+document.getElementById('addMemberModal').addEventListener('click', function(e) {
+  if (e.target === this) AM_close();
+});
+
+// =====================================================
 // PRODUCTS MODAL
 // =====================================================
-document.getElementById('viewProductsBtn').addEventListener('click', () => {
+document.getElementById('viewProductsBtn').addEventListener('click', function() {
   document.getElementById('productsModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 });
-document.getElementById('closeModalBtn').addEventListener('click', () => {
+document.getElementById('closeModalBtn').addEventListener('click', function() {
   document.getElementById('productsModal').classList.add('hidden');
   document.body.style.overflow = 'auto';
 });
@@ -1459,11 +2178,14 @@ document.getElementById('productsModal').addEventListener('click', function(e) {
 // DATES
 // =====================================================
 (function() {
-  var d = new Date();
-  var fmt = String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
-  var yr = d.getFullYear();
-  ['effectiveDate','updatedDate'].forEach(id => { var e = document.getElementById(id); if (e) e.textContent = fmt; });
-  ['year','termsYear'].forEach(id => { var e = document.getElementById(id); if (e) e.textContent = yr; });
+  var now = new Date();
+  var fmt = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  var yr = now.getFullYear();
+  var el;
+  el = document.getElementById('effectiveDate'); if (el) el.textContent = fmt;
+  el = document.getElementById('updatedDate'); if (el) el.textContent = fmt;
+  el = document.getElementById('year'); if (el) el.textContent = yr;
+  el = document.getElementById('termsYear'); if (el) el.textContent = yr;
 })();
 </script>
 </body>
