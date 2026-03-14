@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <!-- ============================================================
-     GROWBIT PRIVATE LIMITED — PUBLIC VIEWER  v2
-     File: growbit_public.html
+     GROWBIT PRIVATE LIMITED — PUBLIC VIEWER  v3
+     File: growbit_public_v3.html
      Data: read-only from localStorage key "growbit_data"
 
-     FIXES APPLIED:
-     [4] Global stats auto-update (Direct→Network, Orbit→TeamSupport)
+     v3 NEW FEATURES:
+     [F2] Global Pool: reads STATE.globalPool (set by Global Pool Manager)
+     [F3] New Partner Count: reads STATE.newPartnerCount (set by admin)
+     [F8] Data sync: BroadcastChannel + storage event (preserved)
+
+     v2 FEATURES PRESERVED (untouched):
+     [4] Global stats auto-update
      [5] Leaderboard open panels preserved during auto-refresh
      [6] BroadcastChannel + storage event for instant cross-tab sync
      [7] Performance: DocumentFragment, sorted cache, single-pass stats
@@ -14,7 +19,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GROWBIT PRIVATE LIMITED - Growing Together, Globally</title>
+<title>GROWBIT PRIVATE LIMITED - Growing Together, Globally v3</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -289,7 +294,12 @@ footer.main-footer a:hover{color:var(--gold-light)}
 
 <div class="gold-divider"></div>
 
-<!-- [FIX 4] GLOBAL STATS — auto-update on any data change -->
+<!-- ================================================================
+     [F2][F3][FIX 4] GLOBAL STATS — auto-update on any data change
+     globalPool → reads STATE.globalPool (admin-managed, Global Pool Manager)
+     newPartnerCount → reads STATE.newPartnerCount (admin-managed)
+     totalNetworkPts / teamSupportPts → computed from member data
+     ================================================================ -->
 <section id="global-pool" class="metrics-section py-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16" data-aos="fade-up">
@@ -298,28 +308,29 @@ footer.main-footer a:hover{color:var(--gold-light)}
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
       <div class="metric-glass" data-aos="fade-right">
-        <div class="metric-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-        <div class="metric-value" id="globalPoolCounter">0</div>
-        <div class="metric-label">Global Pool (INR)</div>
-      </div>
-      <!-- [FIX 4] totalNetworkPts = sum of ALL points (directPoints included) -->
-      <div class="metric-glass" data-aos="fade-up">
-        <div class="metric-icon" style="background:linear-gradient(135deg,#1e3a5f,#2563EB)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="metric-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
         <div class="metric-value" id="totalNetworkPts">0</div>
         <div class="metric-label">Total Network Points</div>
       </div>
-      <!-- [FIX 4] teamSupportPts = firstOrbitPoints + secondOrbitPoints -->
       <div class="metric-glass" data-aos="fade-up" data-aos-delay="80">
         <div class="metric-icon" style="background:linear-gradient(135deg,#4c1d95,#7C3AED)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="metric-value" id="teamSupportPts">0</div>
         <div class="metric-label">Team Support Points</div>
       </div>
-      <div class="metric-glass" data-aos="fade-left">
-        <div class="metric-icon" style="background:linear-gradient(135deg,#78350f,#D97706)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
-        <div class="metric-value" id="newPartnerCount">0</div>
-        <div class="metric-label">New Partner Count</div>
+      <!-- [F2] Global Pool — admin-controlled via Global Pool Manager page -->
+      <div class="metric-glass" data-aos="fade-up" data-aos-delay="120" style="border-color:rgba(212,175,55,.3)">
+        <div class="metric-icon" style="background:linear-gradient(135deg,#78350f,#D97706)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <!-- id="globalPoolDisplay" is set in updateStats() from STATE.globalPool -->
+        <div class="metric-value" id="globalPoolDisplay">0</div>
+        <div class="metric-label" style="color:var(--gold)">Global Pool</div>
       </div>
-    </div>
+      <!-- [F3] New Partner Count — admin-controlled via New Partner Manager page -->
+      <div class="metric-glass" data-aos="fade-left" style="border-color:rgba(16,185,129,.25)">
+        <div class="metric-icon" style="background:linear-gradient(135deg,#065F46,#10B981)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+        <!-- id="newPartnerCount" is set in updateStats() from STATE.newPartnerCount -->
+        <div class="metric-value" id="newPartnerCount" style="background:linear-gradient(135deg,var(--emerald-light),var(--emerald));-webkit-background-clip:text;background-clip:text;color:transparent">0</div>
+        <div class="metric-label" style="color:var(--emerald-light)">New Partner Count</div>
+      </div>
     <!-- PROGRESS -->
     <div class="progress-card max-w-2xl mx-auto" data-aos="fade-up">
       <div class="text-center mb-8">
@@ -487,6 +498,8 @@ footer.main-footer a:hover{color:var(--gold-light)}
 
 var LS_KEY = 'growbit_data';
 var MEMBERS = [];
+var GLOBAL_POOL = 0;         // [F2] admin-managed Global Pool value
+var NEW_PARTNER_COUNT = 0;   // [F3] admin-managed New Partner Count
 
 // [FIX 7] Sort cache
 var _sortedCache = null;
@@ -526,9 +539,9 @@ var SEED_MEMBERS=[
 function loadData(){
   try {
     var raw=localStorage.getItem(LS_KEY);
-    if(raw){ var p=JSON.parse(raw); MEMBERS=p.members||[]; }
-    else MEMBERS=SEED_MEMBERS.slice();
-  } catch(e){ MEMBERS=SEED_MEMBERS.slice(); }
+    if(raw){ var p=JSON.parse(raw); MEMBERS=p.members||[]; GLOBAL_POOL=p.globalPool||0; NEW_PARTNER_COUNT=p.newPartnerCount||0; }
+    else { MEMBERS=SEED_MEMBERS.slice(); GLOBAL_POOL=0; NEW_PARTNER_COUNT=0; }
+  } catch(e){ MEMBERS=SEED_MEMBERS.slice(); GLOBAL_POOL=0; NEW_PARTNER_COUNT=0; }
   invalidateCache();
 }
 
@@ -588,14 +601,21 @@ function updateProgressChart(current,target){
   setTimeout(function(){ var bar=document.getElementById('liquidBar'); if(bar) bar.style.width=Math.max(.5,pct)+'%'; },300);
 }
 
-// [FIX 4] Update global stat widgets
+// [F2][F3][FIX 4] Update global stat widgets
+// globalPoolDisplay  → STATE.globalPool  (admin-managed)
+// newPartnerCount    → STATE.newPartnerCount (admin-managed)
+// totalNetworkPts / teamSupportPts → computed from members
 function updateStats(){
   var s=computeStats();
   var el;
   el=document.getElementById('totalNetworkPts'); if(el) el.textContent=s.totalNetwork.toLocaleString();
   el=document.getElementById('teamSupportPts');  if(el) el.textContent=s.teamSupport.toLocaleString();
-  el=document.getElementById('newPartnerCount'); if(el) el.textContent=s.count;
-  updateProgressChart(s.count,2000);
+  // [F2] Global Pool — from STATE.globalPool set by Global Pool Manager
+  el=document.getElementById('globalPoolDisplay'); if(el){ el.textContent='0'; animNum(el,GLOBAL_POOL,800); }
+  // [F3] New Partner Count — from STATE.newPartnerCount set by New Partner Manager
+  el=document.getElementById('newPartnerCount'); if(el) el.textContent=NEW_PARTNER_COUNT.toLocaleString();
+  // Progress chart uses NEW_PARTNER_COUNT vs goal of 2000
+  updateProgressChart(NEW_PARTNER_COUNT,2000);
 }
 
 // ================================================================
@@ -845,8 +865,6 @@ function fullRefresh(){
 // ================================================================
 AOS.init({duration:800,easing:'ease-in-out',once:true});
 document.getElementById('footerYear').textContent=new Date().getFullYear();
-// Animate global pool counter (static display value)
-setTimeout(function(){ animNum(document.getElementById('globalPoolCounter'),2500); },600);
 fullRefresh();
 </script>
 </body>
